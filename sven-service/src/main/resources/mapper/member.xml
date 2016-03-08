@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mrlu.sven.dao.IMemberDao">
+    <resultMap id="BaseResultMap" type="com.mrlu.sven.domain.Member" >
+        <result column="id" property="id" />
+        <result column="account_id" property="accountId" />
+        <result column="name" property="name" />
+        <result column="head_img" property="headImg" />
+        <result column="age" property="age" />
+        <result column="gender" property="gender" />
+        <result column="mobile" property="mobile" />
+        <result column="email" property="email" />
+        <result column="signature" property="signature" />
+        <result column="create_at" property="createAt" />
+        <result column="update_at" property="updateAt" />
+        
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id,account_id,name,head_img,age,gender,mobile,email,signature,create_at,update_at
+    </sql>
+    
+    <insert id="insert" parameterType="com.mrlu.sven.domain.Member" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO member
+        (
+          id,account_id,name,head_img,age,gender,mobile,email,signature,create_at,update_at
+        )
+        VALUES
+        (
+          #{ id },#{ accountId },#{ name },#{ headImg },#{ age },#{ gender },#{ mobile },#{ email },#{ signature },#{ createAt },#{ updateAt }
+        )
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+      select 
+        <include refid="Base_Column_List" />
+      from member
+      where id = #{id}
+    </select>
+
+    <select id="selectByAccountId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from member
+        where account_id = #{accountId}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long" >
+      update member
+      set isdel = 1
+      where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.mrlu.sven.domain.Member">
+        UPDATE member
+        SET name = #{name},
+            head_img = #{ headImg },
+            age = #{ age },
+            gender = #{ gender },
+            signature = #{ signature },
+            updateAt = #{ updateAt }
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据条件查询数量-->
+    <select id="getPageCountByParam" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT count(t.id)
+        FROM member t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="accountId != null">
+            and t.account_id = #{ accountId }
+        </if>
+        <if test="name != null">
+            and t.name = #{ name }
+        </if>
+        <if test="headImg != null">
+            and t.head_img = #{ headImg }
+        </if>
+        <if test="age != null">
+            and t.age = #{ age }
+        </if>
+        <if test="gender != null">
+            and t.gender = #{ gender }
+        </if>
+        <if test="mobile != null">
+            and t.mobile = #{ mobile }
+        </if>
+        <if test="email != null">
+            and t.email = #{ email }
+        </if>
+        <if test="signature != null">
+            and t.signature = #{ signature }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="updateAt != null">
+            and t.update_at = #{ updateAt }
+        </if>
+    </select>
+
+    <select id="getPageListByParam" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT t.*
+        FROM member t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="accountId != null">
+            and t.account_id = #{ accountId }
+        </if>
+        <if test="name != null">
+            and t.name = #{ name }
+        </if>
+        <if test="headImg != null">
+            and t.head_img = #{ headImg }
+        </if>
+        <if test="age != null">
+            and t.age = #{ age }
+        </if>
+        <if test="gender != null">
+            and t.gender = #{ gender }
+        </if>
+        <if test="mobile != null">
+            and t.mobile = #{ mobile }
+        </if>
+        <if test="email != null">
+            and t.email = #{ email }
+        </if>
+        <if test="signature != null">
+            and t.signature = #{ signature }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="updateAt != null">
+            and t.update_at = #{ updateAt }
+        </if>
+        order by t.id desc
+        <if test="startIndex != null and pageSize !=null ">
+            limit #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+</mapper>

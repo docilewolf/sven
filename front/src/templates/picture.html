@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="public/picture/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="public/picture/css/bootstrap-image-gallery.min.css">
+
+<div class="page-header">
+    <h1><b>标题</b>
+        <!--<small>子标题</small>-->
+    </h1>
+</div>
+<div class="page-info">
+    <div class="page-tools">
+        <h4>{{profile.description}}描述</h4>
+    </div>
+    <span class="time-source">
+        <a href="" ui-sref="category({id:profile.categoryId})">{{category.name}}profile<span class="glyphicon glyphicon-pushpin"></span></a>
+        <small>{{profile.createAt | date: 'yyyy-MM-dd HH:mm:ss'}}2016-02-24 13:50:12</small>
+    </span>
+</div>
+<hr>
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="links">
+    <a href="http://7xpc60.com1.z0.glb.clouddn.com/1455876723661.png" title="Banana" data-gallery>
+        <img src="http://7xpc60.com1.z0.glb.clouddn.com/1455876723661.png" width="75" height="75" alt="Banana">
+    </a>
+    <a href="http://www.runoob.com/wp-content/uploads/2014/07/slide1.png" title="Apple" data-gallery>
+        <img src="http://www.runoob.com/wp-content/uploads/2014/07/slide1.png" width="75" height="75" alt="Apple">
+    </a>
+    <a href="http://www.runoob.com/wp-content/uploads/2014/07/slide2.png" title="Orange" data-gallery>
+        <img src="http://www.runoob.com/wp-content/uploads/2014/07/slide2.png" width="75" height="75" alt="Orange">
+    </a>
+</div>
+
+<script src="public/picture/js/jquery.blueimp-gallery.min.js"></script>
+<script src="public/picture/js/bootstrap-image-gallery.min.js"></script>

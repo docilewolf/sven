@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mrlu.sven.dao.ICommentDao">
+    <resultMap id="BaseResultMap" type="com.mrlu.sven.domain.Comment" >
+        <result column="id" property="id" />
+        <result column="essay_id" property="essayId" />
+        <result column="picture_id" property="pictureId" />
+        <result column="comment_id" property="commentId" />
+        <result column="content" property="content" />
+        <result column="from_account_id" property="fromAccountId" />
+        <result column="from_member_id" property="fromMemberId" />
+        <result column="create_at" property="createAt" />
+        <result column="type" property="type" />
+        <result column="to_account_id" property="toAccountId" />
+        <result column="to_member_id" property="toMemberId" />
+        <result column="isdel" property="isdel" />
+        
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id,essay_id,picture_id,comment_id,content,from_account_id,from_member_id,create_at,type,to_account_id,to_member_id,isdel
+    </sql>
+    
+    <insert id="insert" parameterType="com.mrlu.sven.domain.Comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comment
+        (
+          id,essay_id,picture_id,comment_id,content,from_account_id,from_member_id,create_at,type,to_account_id,to_member_id
+        )
+        VALUES
+        (
+          #{ id },#{ essayId },#{ pictureId },#{ commentId },#{ content },#{ fromAccountId },#{ fromMemberId },#{ createAt },#{ type },#{ toAccountId },#{ toMemberId }
+        )
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+      select 
+        <include refid="Base_Column_List" />
+      from comment
+      where id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long" >
+      update comment
+      set isdel = 1
+      where id = #{id}
+    </delete>
+
+
+    <!-- 根据条件查询数量-->
+    <select id="getPageCountByParam" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT count(t.id)
+        FROM comment t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="essayId != null">
+            and t.essay_id = #{ essayId }
+        </if>
+        <if test="pictureId != null">
+            and t.picture_id = #{ pictureId }
+        </if>
+        <if test="commentId != null">
+            and t.comment_id = #{ commentId }
+        </if>
+        <if test="content != null">
+            and t.content = #{ content }
+        </if>
+        <if test="fromAccountId != null">
+            and t.from_account_id = #{ fromAccountId }
+        </if>
+        <if test="fromMemberId != null">
+            and t.from_member_id = #{ fromMemberId }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="type != null">
+            and t.type = #{ type }
+        </if>
+        <if test="toAccountId != null">
+            and t.to_account_id = #{ toAccountId }
+        </if>
+        <if test="toMemberId != null">
+            and t.to_member_id = #{ toMemberId }
+        </if>
+        <if test="isdel != null">
+            and t.isdel = #{ isdel }
+        </if>
+    </select>
+
+    <select id="getPageListByParam" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT t.*
+        FROM comment t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="essayId != null">
+            and t.essay_id = #{ essayId }
+        </if>
+        <if test="pictureId != null">
+            and t.picture_id = #{ pictureId }
+        </if>
+        <if test="commentId != null">
+            and t.comment_id = #{ commentId }
+        </if>
+        <if test="content != null">
+            and t.content = #{ content }
+        </if>
+        <if test="fromAccountId != null">
+            and t.from_account_id = #{ fromAccountId }
+        </if>
+        <if test="fromMemberId != null">
+            and t.from_member_id = #{ fromMemberId }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="type != null">
+            and t.type = #{ type }
+        </if>
+        <if test="toAccountId != null">
+            and t.to_account_id = #{ toAccountId }
+        </if>
+        <if test="toMemberId != null">
+            and t.to_member_id = #{ toMemberId }
+        </if>
+        <if test="isdel != null">
+            and t.isdel = #{ isdel }
+        </if>
+        order by t.id desc
+        <if test="startIndex != null and pageSize !=null ">
+            limit #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+</mapper>

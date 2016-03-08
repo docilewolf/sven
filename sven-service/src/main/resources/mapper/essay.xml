@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mrlu.sven.dao.IEssayDao">
+    <resultMap id="BaseResultMap" type="com.mrlu.sven.domain.Essay" >
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="content" property="content" />
+        <result column="category_id" property="categoryId" />
+        <result column="create_at" property="createAt" />
+        <result column="update_at" property="updateAt" />
+        <result column="isdel" property="isdel" />
+        
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id,name,description,content,category_id,create_at,update_at,isdel
+    </sql>
+    
+    <insert id="insert" parameterType="com.mrlu.sven.domain.Essay" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO essay
+        (
+          id,name,description,content,category_id,create_at,update_at
+        )
+        VALUES
+        (
+          #{ id },#{ name },#{ description },#{ content },#{ categoryId },#{ createAt },#{ updateAt }
+        )
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+      select 
+        <include refid="Base_Column_List" />
+      from essay
+      where id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long" >
+      update essay
+      set isdel = 1
+      where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.mrlu.sven.domain.Essay">
+        UPDATE essay
+        SET
+        name = #{ name },
+        description = #{ description },
+        content = #{ content },
+        category_id = #{ categoryId },
+        updateAt = #{ updateAt },
+        WHERE
+        id = #{ id }
+    </update>
+
+    <delete id="deleteByCategoryId" parameterType="java.lang.Long">
+        UPDATE essay
+        SET category_id = NULL
+        WHERE category_id = #{categoryId}
+    </delete>
+
+    <!-- 根据条件查询数量-->
+    <select id="getPageCountByParam" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT count(t.id)
+        FROM essay t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="name != null">
+            and t.name = #{ name }
+        </if>
+        <if test="description != null">
+            and t.description = #{ description }
+        </if>
+        <if test="content != null">
+            and t.content = #{ content }
+        </if>
+        <if test="categoryId != null">
+            and t.category_id = #{ categoryId }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="updateAt != null">
+            and t.update_at = #{ updateAt }
+        </if>
+        <if test="isdel != null">
+            and t.isdel = #{ isdel }
+        </if>
+    </select>
+
+    <select id="getPageListByParam" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT t.*
+        FROM essay t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="name != null">
+            and t.name = #{ name }
+        </if>
+        <if test="description != null">
+            and t.description = #{ description }
+        </if>
+        <if test="content != null">
+            and t.content = #{ content }
+        </if>
+        <if test="categoryId != null">
+            and t.category_id = #{ categoryId }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="updateAt != null">
+            and t.update_at = #{ updateAt }
+        </if>
+        <if test="isdel != null">
+            and t.isdel = #{ isdel }
+        </if>
+        order by t.id desc
+        <if test="startIndex != null and pageSize !=null ">
+            limit #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+</mapper>

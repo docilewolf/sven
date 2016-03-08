@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mrlu.sven.dao.IProfileDao">
+    <resultMap id="BaseResultMap" type="com.mrlu.sven.domain.Profile" >
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="img_url" property="imgUrl" />
+        <result column="type" property="type" />
+        <result column="create_at" property="createAt" />
+        <result column="isdel" property="isdel" />
+        <result column="essay_id" property="essayId" />
+        <result column="picture_id" property="pictureId" />
+        <result column="category_id" property="categoryId" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id,name,description,img_url,type,create_at,isdel,essay_id,picture_id,category_id
+    </sql>
+    
+    <insert id="insert" parameterType="com.mrlu.sven.domain.Profile" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO profile
+        (
+          id,name,description,img_url,type,create_at,essay_id,picture_id,category_id
+        )
+        VALUES
+        (
+          #{ id },#{ name },#{ description },#{ imgUrl },#{ type },#{ createAt },#{ essayId },#{ pictureId },#{categoryId}
+        )
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+      select 
+        <include refid="Base_Column_List" />
+      from profile
+      where id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long" >
+      update profile
+      set isdel = 1
+      where id = #{id}
+    </delete>
+
+    <!-- 根据条件查询数量-->
+    <select id="getPageCountByParam" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT count(t.id)
+        FROM profile t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="name != null">
+            and t.name = #{ name }
+        </if>
+        <if test="description != null">
+            and t.description = #{ description }
+        </if>
+        <if test="imgUrl != null">
+            and t.img_url = #{ imgUrl }
+        </if>
+        <if test="type != null">
+            and t.type = #{ type }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="isdel != null">
+            and t.isdel = #{ isdel }
+        </if>
+        <if test="essayId != null">
+            and t.essay_id = #{ essayId }
+        </if>
+        <if test="pictureId != null">
+            and t.picture_id = #{ pictureId }
+        </if>
+        <if test="categoryId != null">
+            and t.category_id = #{ categoryId }
+        </if>
+    </select>
+
+    <select id="getPageListByParam" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT t.*
+        FROM profile t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="name != null">
+            and t.name = #{ name }
+        </if>
+        <if test="description != null">
+            and t.description = #{ description }
+        </if>
+        <if test="imgUrl != null">
+            and t.img_url = #{ imgUrl }
+        </if>
+        <if test="type != null">
+            and t.type = #{ type }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="isdel != null">
+            and t.isdel = #{ isdel }
+        </if>
+        <if test="essayId != null">
+            and t.essay_id = #{ essayId }
+        </if>
+        <if test="pictureId != null">
+            and t.picture_id = #{ pictureId }
+        </if>
+        <if test="categoryId != null">
+            and t.category_id = #{ categoryId }
+        </if>
+        order by t.create_at desc
+        <if test="startIndex != null and pageSize !=null ">
+            limit #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getListByCategoryId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM profile
+        WHERE
+        category_id = #{id}
+    </select>
+</mapper>

@@ -1,0 +1,157 @@
+a{
+    color: #555555;
+    text-decoration: none;
+}
+a:hover, a:active{
+    color: black;
+    text-decoration: none;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+}
+
+input[type="text"]{
+    color: #555555;
+    background-color: white;
+    vertical-align: middle;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+blockquote {
+    padding: 0 0 0 15px;
+    margin: 0 0 20px;
+    border-left: 5px solid #eeeeee;
+}
+
+.common-a, .common-a:active, .common-a:hover{
+    color: #555555;
+    text-decoration: none;
+}
+
+.common-list{
+    list-style: none;
+}
+
+.wrap-img{
+    float: right;
+    width: 100px;
+    height: 100px;
+}
+
+button{
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+}
+
+.loading{
+    background: url('http://7xpc60.com1.z0.glb.clouddn.com/1457000078973.gif') no-repeat;
+    background-size: contain;
+}
+
+.article .show-content, .kalamu-area{
+    color: #2f2f2f;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.7;
+}
+
+.kalamu-area p{
+    text-align: justify;
+    word-break: initial;
+}
+
+.kalamu-area blockquote{
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background-color: whitesmoke;
+    border-left: 4px solid #999999;
+    font-size: 15px;
+    font-weight: 100;
+    line-height: 30px;
+}
+
+.kalamu-area blockquote p{
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.7;
+}
+
+.kalamu-area hr{
+    margin: 0 0 20px;
+    border-top: 1px solid #d9d9d9;
+}
+
+.icon{
+    line-height: 20px;
+    vertical-align: middle;
+    font-size: 0;
+    white-space: nowrap;
+}
+
+.icon.icon-center{
+    margin: 20px;
+    text-align: center;
+}
+
+.icon span{
+    font-size: 16px;
+}
+
+.icon .pointer:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.icon-input{
+    width: 9%;
+    text-align: center;
+    background-color: #eeeeee;
+    border: 1px solid #999999;
+    border-radius: 0;
+    display: inline-block;
+    padding: 10px;
+    font-size: 12px;
+    margin-right: -1px;
+    vertical-align: top;
+}
+.value-input{
+    width: 66%;
+    height: 42px;
+    display: inline-block;
+    border-radius: 0;
+    outline: none;
+}
+
+
+.inherit-text{
+    width: inherit;
+    height: inherit;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    background: inherit;
+}
+
+.list-inline>li {
+    margin: 6px;
+}
+
+.li-radio{
+    padding: 5px;
+    cursor:pointer;
+    border: 1px dotted #999999;
+    border-radius: 10px;
+}
+
+.li-radio:hover, .li-radio.active{
+    color: white;
+    background-color: #e78170;
+}

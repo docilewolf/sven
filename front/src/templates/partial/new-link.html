@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <a class="close" ng-click="$dismiss()">&times;</a>
+    <h4 class="modal-title">插入链接</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" name="form">
+        <div class="icon icon-center">
+            <span class="icon-input"><i class="fa fa-link"></i></span>
+            <input class="form-control value-input" type="text"  ng-model="entity.linkAddress" required/>
+        </div>
+        <div class="icon icon-center">
+            <span class="icon-input"><i class="fa fa-font"></i></span>
+            <input type="text" class="form-control value-input" ng-model="entity.linkName" required/>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+        <button class="btn btn-primary" ng-click="confirm()" ng-disabled="processing || form.$invalid">
+            <span ng-if="!processing">确定</span>
+            <span ng-if="processing">处理中...</span>
+        </button>
+        <button class="btn" ng-click="$close()">取消</button>
+</div>

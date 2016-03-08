@@ -1,0 +1,134 @@
+.writing-mode{
+    background-color: #e6e6e6;
+    padding: 10px;
+    padding-bottom: 130px;
+}
+
+.writing-mode .main{
+    margin: 20px auto 0 auto;
+    width: 80%;
+    box-shadow: 0 0 7px rgba(0,0,0,0.25);
+    background-color: white;
+}
+
+.writing-mode .rich-text{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 100;
+    line-height: 25px;
+}
+
+.main .title{
+    width: 100%;
+    padding: 10px 20px 10px 30px;
+    border: none;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 30px;
+    font-weight: normal;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.kalamu-area, .title{
+    outline: none;
+}
+
+.kalamu-box .kalamu-area{
+    padding: 30px;
+    bottom: 0;
+}
+
+.kalamu-area a{
+    color: #58cfff;
+    text-decoration: underline;
+    margin: auto 2px;
+    background-color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/*工具栏*/
+.rich-text .toolbar{
+    width: 100%;
+    list-style: none;
+    background-color: #dedede;
+    border-bottom: 1px solid #d9d9d9;
+    position: fixed;
+    top: 0;
+    left: 45px;
+    padding: 5px 10% 0 0;
+    line-height: 40px;
+    z-index: 1010;
+}
+
+.rich-text .toolbar li{
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    line-height: 20px;
+}
+
+.rich-text .toolbar button{
+    padding: 11px 14px;
+    display: inline-block;
+    line-height: 17px;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.rich-text .toolbar button:hover{
+    color: white;
+    background-color: black;
+}
+
+/*插入内容*/
+/*.modal-body label{
+    color: #e78170;
+    text-align: right;
+}
+
+.modal-body label i{
+    border: 1px solid transparent;
+    border-radius: 90%;
+}*/
+
+.modal-body .file-input{
+    cursor: pointer;
+    width: 50%;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid white;
+    box-shadow: 0 1px 3px whitesmoke;
+    background-color: #101010;
+    color: white;
+    text-align: center;
+}
+
+.modal-body .file-upload{
+    display: none;
+}
+
+/*图片*/
+.kalamu-area .image-package{
+    margin: 0 auto 20px;
+    padding: 20px 20px;
+    text-align: center;
+}
+
+.image-package .image-caption{
+    min-width: 20%;
+    min-height: 22px;
+    display: inline-block;
+    padding: 10px;
+    margin: 0 auto;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 13px;
+    color: #999999;
+    font-style: italic;
+    line-height: 1.7;
+}

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mrlu.sven.dao.ICategoryDao">
+    <resultMap id="BaseResultMap" type="com.mrlu.sven.domain.Category" >
+        <result column="id" property="id" />
+        <result column="pid" property="pid" />
+        <result column="name" property="name" />
+        <result column="create_at" property="createAt" />
+        <result column="type" property="type" />
+        <result column="isdel" property="isdel" />
+        
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    id,pid,name,create_at,type,isdel
+    </sql>
+    
+    <insert id="insert" parameterType="com.mrlu.sven.domain.Category" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO category
+        (
+          id,pid,name,create_at,type,isdel
+        )
+        VALUES
+        (
+          #{ id },#{ pid },#{ name },#{ createAt },#{ type }
+        )
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+      select 
+        <include refid="Base_Column_List" />
+      from category
+      where id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long" >
+      DELETE FROM category
+      where id = #{id}
+    </delete>
+
+    <select id="selectByPid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from category
+        where id = #{id}
+    </select>
+
+    <!-- 根据条件查询数量-->
+    <select id="getPageCountByParam" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT count(t.id)
+        FROM category t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="pid != null">
+            and t.pid = #{ pid }
+        </if>
+        <if test="name != null">
+            and t.name = #{ name }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="type != null">
+            and t.type = #{ type }
+        </if>
+        <if test="isdel != null">
+            and t.isdel = #{ isdel }
+        </if>
+    </select>
+
+    <select id="getPageListByParam" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT t.*
+        FROM category t
+        WHERE 1 = 1
+        
+        <if test="id != null">
+            and t.id = #{ id }
+        </if>
+        <if test="pid != null">
+            and t.pid = #{ pid }
+        </if>
+        <if test="name != null">
+            and t.name = #{ name }
+        </if>
+        <if test="createAt != null">
+            and t.create_at = #{ createAt }
+        </if>
+        <if test="type != null">
+            and t.type = #{ type }
+        </if>
+        <if test="isdel != null">
+            and t.isdel = #{ isdel }
+        </if>
+        order by t.id desc
+        <if test="startIndex != null and pageSize !=null ">
+            limit #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+</mapper>

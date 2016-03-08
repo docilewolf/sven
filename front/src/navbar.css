@@ -1,0 +1,224 @@
+body{
+    color: #555555;
+    font-size: 14px;
+    font-family: Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+    line-height: 20px;
+    background-color: white;
+}
+
+/*左侧菜单*/
+.nav.nav-sven{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 45px;
+    height: 100%;
+    background: #2a2a2a;
+    z-index: 1024;
+}
+
+.nav-sven .nav-menu{
+    margin-top: 10px;
+}
+
+.nav-menu a{
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    line-height: 25px;
+}
+
+.nav-menu a:hover, a:active{
+    background-color: #e78170;
+    color: white;
+    text-shadow: 0 1px 0 #de533a;
+}
+
+a.logo{
+    font-size: 18px;
+}
+
+/*顶部菜单*/
+.header{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 1000;
+    box-shadow: 0 1px 3px whitesmoke;
+    padding-top: 10px;
+    padding-bottom: 7px;
+    -webkit-transition: transform 0.5s cubic-bezier(0.56, -0.29, 0.57, 1),opacity 0.1s;
+    -moz-transition: transform 0.5s cubic-bezier(0.56, -0.29, 0.57, 1),opacity 0.1s;
+    -o-transition: transform 0.5s cubic-bezier(0.56, -0.29, 0.57, 1),opacity 0.1s;
+    transition: transform 0.5s cubic-bezier(0.56, -0.29, 0.57, 1),opacity 0.1s;
+    -webkit-backface-visibility: hidden;
+}
+
+.header .pull-left{
+    padding-left: 65px;
+}
+
+.header .pull-left a{
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    color: #e78170;
+    margin-right: 10px;
+    border: 1px solid #e78170;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 32px;
+}
+
+.header .pull-right{
+    padding-right: 10px;
+}
+
+.header .pull-right a{
+    margin-left: 10px;
+}
+
+.header a:hover{
+    text-decoration: none;
+}
+
+.header.hide-header{
+    -webkit-transform: translate(0, -90px);
+    -ms-transform: translate(0, -90px);
+    transform: translate(0, -90px);
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+/*主体内容*/
+.container{
+    margin-top: 56px;
+}
+
+/*category header*/
+.page-header{
+    margin-top: 15px;
+}
+.category-header{
+    padding-left: 25px;
+}
+
+.category-header > li{
+    float: left;
+    margin: 10px 15px 5px 0;
+}
+
+.category-header > li > a{
+    padding: 5px 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.category-header > li.active > a, .category-header > li > a:hover{
+    color: white;
+    border-color: #e78170;
+    background: #e78170;
+}
+
+/*内容*/
+.category-content{
+    padding-left: 25px;
+    margin-top: 35px;
+}
+
+.category-content > li{
+    position: relative;
+    width: 100%;
+    padding-right: 2px;
+    padding-bottom: 17px;
+    margin: 0 0 17px;
+    border-bottom: 1px dashed #d9d9d9;
+    word-wrap: break-word;
+}
+.category-content > li >a >img{
+    width: 100%;
+    height: 100px;
+    border-radius: 4px;
+    border: 1px solid #eeeeee;
+}
+
+.category-date{
+    margin: 8px 0;
+    font-size: 12px;
+}
+
+.category-title{
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+.category-title a{
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+}
+
+.category-desc{
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    color: #999;
+}
+
+/*加载*/
+.load-more{
+    text-align: left;
+    padding-left: 25px;
+    margin-bottom: 20px;
+}
+
+.load-more button,.load-more button:hover{
+    background-color: #e78170;
+    color: white;
+    border-radius: 90px;
+    border: 1px solid transparent;
+}
+.load-more button:hover{
+    opacity: 0.8;
+}
+
+.category-more{
+    margin: 10px 10px;
+    width: 60px;
+    height: 40px;
+}
+
+/*文章*/
+.article{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.article .title{
+    margin-bottom: 25px;
+    padding-top: 10px;
+    border-bottom: 1px dashed #DDD;
+}
+
+.article .time{
+    margin-top: 10px;
+    color: #ccc;
+    font-size: 12px;
+}
+
+.article .show-content p{
+    margin: 0 0 25px 0;
+}
+
+.image-package{
+    margin: 0 auto 20px;
+    text-align: center;
+}

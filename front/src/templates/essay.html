@@ -1,0 +1,15 @@
+<div class="article">
+    <!--<div class="meta-top">
+        <span class="wordage">字数959</span>
+        <span class="views-count">阅读937</span>
+        <span class="comments-count">评论45</span>
+        <span class="likes-count">喜欢55</span>
+    </div>-->
+
+    <div class="title">
+        <h1 class="">{{entity.name}}</h1>
+        <span class="time">{{entity.createAt | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+    </div>
+    <div class="show-content" ng-bind-html="entity.content | safe">
+    </div>
+</div>

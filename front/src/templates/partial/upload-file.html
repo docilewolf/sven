@@ -1,0 +1,5 @@
+<label class="file-input" onclick="selectFile()">选择图片上传</label>
+<input type="file" class="file-upload" ng-file-select="onImgSelect('navigation',$files,0)" accept="image/*"/>
+<div>
+    <img src="" ng-src="{{entity.imgUrl}}" />
+</div>

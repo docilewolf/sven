@@ -1,0 +1,65 @@
+<div class="writing-mode">
+    <div class="main">
+        <form class="rich-text" data-note-id="2570894">
+            <input class="title" name="note_title" ng-model="title" />
+            <div id="editor" class="kalamu-box">
+                <ul class="toolbar clearfix">
+                    <li class="">
+                        <ul class="inline_menu">
+                            <li><button font font-style="bold" class="fa fa-bold" data-toggle="tooltip" data-original-title="粗体"></button></li>
+                            <li><button font font-style="Italic" class="fa fa-italic" data-toggle="tooltip" data-original-title="斜体"></button></li>
+                            <li><button font font-style="StrikeThrough" class="fa fa-strikethrough" data-toggle="tooltip" data-original-title="删除线"></button></li>
+                        </ul>
+                    </li>
+                    <li><button font format-block="blockquote" class="fa fa-quote-left" data-toggle="tooltip" data-original-title="引用"></button></li>
+                    <li class="">
+                        <ul class="inline_menu">
+                            <li><button font format-block="h1" data-toggle="tooltip" data-original-title="标题一">H1</button></li>
+                            <li><button font format-block="h2" data-toggle="tooltip" data-original-title="标题二">H2</button></li>
+                            <li><button font format-block="h3" data-toggle="tooltip" data-original-title="标题三">H3</button></li>
+                            <li><button font format-block="h4" data-toggle="tooltip" data-original-title="标题四">H4</button></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <ul class="inline_menu">
+                            <li><button font font-hr="true" class="fa fa-minus-no-use" data-toggle="tooltip" data-original-title="分割线" title="分割线">—</button></li>
+                            <li data-shortcut="ctrl-k" data-mac-shortcut="cmd-k" id="ctrl-link">
+                                <button link class="fa fa-link" data-toggle="tooltip" data-original-title="插入链接" title="插入链接" ng-click="newLink()"></button>
+                            </li>
+                            <li data-shortcut="ctrl-p" data-mac-shortcut="cmd-p">
+                                <button link class="fa fa-picture-o" data-toggle="tooltip" data-original-title="插入图片" title="插入图片" ng-click="newPicture()"></button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="pull-right publish-button-item">
+                        <button href="javascript:void(null)" data-action="publicize" id="publish-button" ng-click="confirm()">
+                            <i class="fa fa-mail-forward"></i> 发布文章
+                        </button>
+                    </li>
+                    <li class="pull-right">
+                        <button href="javascript:void(null)" data-action="trigger-save" data-toggle="tooltip" data-original-title="保存" ng-click="save()">
+                            <i class="fa fa-floppy-o"></i> 保存</button>
+                    </li>
+                </ul>
+                <div content-text id="content-area" class="kalamu-area mousetrap" contenteditable="true" ng-model="context">
+                    <p>1. &nbsp;</p>
+                    <blockquote>
+                        <p>123v
+                            <strike>1231 &nbsp;1
+                                <a href="http://12312" target="_blank">
+                                    <b>sad</b>
+                                </a>
+                            </strike>
+                        </p>
+                    </blockquote>
+                    <hr>
+                    <p>2.</p>
+
+                    <p>3.</p>
+
+                    <p>4.&nbsp;</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop = "http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/aop
+                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+       <bean id="sleepHelper" class="aspect.xml.SleepHelper" />
+
+       <bean id="sleepHelperAdvice" class="aspect.SleepHelper" />
+       <bean id="humanSleep" class="aspect.xml.HumanSleep" />
+       <aop:config>
+              <aop:aspect ref="sleepHelper">
+                     <aop:pointcut type="regex" expression="execution(* *.*sleep(..))" id="pointcut" />
+                     <aop:before method="before" pointcut-ref="pointcut"/>
+                     <aop:after-returning method="afterReturning" pointcut-ref="pointcut" />
+                     <aop:after method="after" pointcut-ref="pointcut" />
+              </aop:aspect>
+       </aop:config>
+
+</beans>
