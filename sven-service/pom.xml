@@ -92,15 +92,6 @@
             </activation>
             <properties>
                 <qding.log.leval>INFO</qding.log.leval>
-                <qding.log.path>D:/output/sven</qding.log.path>
-                <qding.conf.path>D:/platform/sven/</qding.conf.path>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>online</id>
-            <properties>
-                <qding.log.leval>INFO</qding.log.leval>
                 <qding.log.path>/data/logs/sven</qding.log.path>
                 <qding.conf.path>/data/qdconf/sven/</qding.conf.path>
             </properties>
