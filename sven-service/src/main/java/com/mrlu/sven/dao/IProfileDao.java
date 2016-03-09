@@ -16,6 +16,4 @@ public interface IProfileDao {
     public Integer getPageCountByParam(HashMap<String, Object> paramMap);
 
     public void deleteById(Long id);
-
-    List<Profile> getListByCategoryId(Long id);
 }

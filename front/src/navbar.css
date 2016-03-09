@@ -30,7 +30,7 @@ body{
     line-height: 25px;
 }
 
-.nav-menu a:hover, a:active{
+.nav-menu a:hover, .nav-menu a:active, .nav-menu a.active{
     background-color: #e78170;
     color: white;
     text-shadow: 0 1px 0 #de533a;
@@ -92,6 +92,76 @@ a.logo{
     transform: translate(0, -90px);
     opacity: 0.5;
     filter: alpha(opacity=50);
+}
+
+.header-content{
+    position: fixed;
+    top: 59px;
+    width: 120px;
+    left: 50px;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    background-color: white;
+    z-index: 2000;
+}
+
+.header-content:before{
+    position: absolute;
+    top: -10px;
+    content: '';
+    display: inline-block;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid #d9d9d9;
+}
+
+.header-essay:before{
+    left: 26px;
+}
+
+.header-picture:before{
+    left: 67px;
+}
+
+.header-content .header-ul{
+    list-style: none;
+    overflow-y: auto;
+    margin: 10px auto;
+    padding: 0;
+}
+
+.header-content .header-ul>li{
+    border-bottom: 1px solid #eee;
+    padding-bottom: 3px;
+    cursor: pointer;
+}
+
+.header-content .header-ul>li>a{
+    width: 100%;
+    display: inline-block;
+}
+
+.header-content .header-ul>li>a i{
+    margin: auto 5px;
+    font-size: 8px;
+    line-height: 20px;
+    vertical-align: middle;
+    color: #D0D0D0;
+}
+
+.header-content .header-ul>li>a:hover{
+    color: white;
+    background-color: #e78170;
+}
+
+.header-content .hide{
+    display: none;
 }
 
 /*主体内容*/

@@ -54,17 +54,4 @@ public class ProfileController extends MultiActionController {
         logger.info("delete profile id:" + id);
         return profileService.deleteById(id);
     }
-
-    /**
-     * 根据分类id查询profile list
-     * @param id
-     * @return
-     * @throws SvenException
-     */
-    @RequestMapping(value = "getListByCategoryId", method = RequestMethod.GET)
-    @ResponseBody
-    public Object getListByCategoryId(Long id) throws SvenException{
-        logger.info("getListByCategoryId id:" + id);
-        return profileService.getListByCategoryId(id);
-    }
 }

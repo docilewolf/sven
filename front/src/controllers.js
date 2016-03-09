@@ -1,57 +1,27 @@
 
-svenModule.controller('indexController', function($scope, $state, $timeout, categoryService){
-  categoryService.getContentByCategoryId(1).then(function(res){
+svenModule.controller('indexController', function($scope, $state, $timeout, profileService){
+  profileService.list().then(function(res){
     $scope.list = res.list;
     //在DOM渲染完之后，启用timeline动画效果
     $timeout(function () {
       initTimeline();
     })
   });
-
-  $scope.profileDetail = function (profile) {
-    if(profile.type === 1){
-      $state.go("essay", {id: profile.essayId});
-    }else{
-      $state.go("picture", {id: profile.pictureId});
-    }
-  };
 });
 
 svenModule.controller('accountController', function ($scope, $state) {
   $scope.account = 123123
 });
 
-svenModule.controller('categoryController', function ($rootScope, $scope, $state, $stateParams, categoryService, $timeout, commonService, project) {
-  $scope.categoryId = $stateParams.id;
+svenModule.controller('categoryController', function ($rootScope, $scope, $state, $stateParams, profileService, commonService) {
   $scope.type = $stateParams.type;
-  console.log($scope.type);
-  console.log($rootScope);
-  console.log($rootScope.$id);
-  console.log($rootScope.essayCategoryList);
-  $scope.categoryList = $scope.type == 1?$rootScope.essayCategoryList:$rootScope.pictureCategoryList;
-  categoryService.getContentByCategoryId($scope.categoryId).then(function(res){
-    $scope.list = res.list;
-  });
-  $scope.categoryList = [{id:1,name:'java'}, {id:2,name:'python'}, {id:3,name:'js'}, {id:4,name:'述说'}];
-
-  var nextState = $scope.type == 1?"essay":"picture";
-  $scope.goNextSate = function (category) {
-      $state.go(nextState, {id:category.id});
-  }
-  //文章或相册详情
-  //跳到essay或picture module
-  $scope.profileDetail = function (profile) {
-    commonService.profile = profile;
-    if(profile.type === 1){
-      $state.go("essay");
-    }else{
-      $state.go("picture");
+  $scope.itemList = $scope.type == 1?$rootScope.essayCategoryList:$rootScope.pictureCategoryList;
+  $scope.searchParams = function (entityId) {
+    return {
+      categoryId: entityId
     }
-  }
-  
-  $scope.loadMore = function () {
-    $scope.loading = true;
-  }
+  };
+  commonService.getProfileList($scope, $stateParams.id, $scope.itemList, profileService);
 });
 
 svenModule.controller('commentController', function ($scope, $state) {
@@ -140,6 +110,15 @@ svenModule.controller('memberController', function ($scope, $state) {
 svenModule.controller('pictureController', function ($scope, $state, $stateParams, pictureService, commonService) {
 });
 
-svenModule.controller('profileController', function ($scope, $state) {
+svenModule.controller('profileController', function ($scope, $state, $stateParams, profileService, commonService) {
+  $scope.type = $stateParams.type;
+  $scope.itemList = [{id:1, name:'文章'}, {id:2, name:"图片"}];
+  $scope.searchParams = function (type) {
+    return {
+      type: type
+    }
+  };
+  //注意要放到最低部
+  commonService.getProfileList($scope, $stateParams.type, $scope.itemList, profileService);
 });
 

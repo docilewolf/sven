@@ -146,6 +146,15 @@ svenModule.run(function($rootScope){
     })
 })*/
 
+//页面跳转
+svenModule.run(function ($rootScope) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        if($('.header').css('display') == 'none') $('.header').css('display', 'block');
+        if(!$('.header-essay').hasClass('hide')) $('.header-essay').addClass('hide');
+        if(!$('.header-picture').hasClass('hide')) $('.header-picture').addClass('hide');
+    })
+})
+
 //分类
 svenModule.run(function($rootScope, $http, project){
     $http({

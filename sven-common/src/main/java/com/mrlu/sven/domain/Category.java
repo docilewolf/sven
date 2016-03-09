@@ -24,7 +24,7 @@ public class Category implements Serializable{
     /**
     * 关联编号
     */
-    private Long pid;
+    private Long pid = 0L;
     
     /**
     * 名称
@@ -44,7 +44,7 @@ public class Category implements Serializable{
     /**
     * 
     */
-    private Integer isdel;
+    private Integer isdel = 0;
     
     
     public Long getId(){

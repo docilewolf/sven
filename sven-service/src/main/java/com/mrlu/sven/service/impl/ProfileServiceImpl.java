@@ -66,9 +66,4 @@ public class ProfileServiceImpl implements IProfileService {
         profileDao.deleteById(id);
         return profile;
     }
-
-    @Override
-    public List<Profile> getListByCategoryId(Long id) throws SvenException {
-        return profileDao.getListByCategoryId(id);
-    }
 }

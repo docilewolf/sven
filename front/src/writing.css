@@ -121,7 +121,7 @@
 }
 
 .image-package .image-caption{
-    min-width: 20%;
+    min-width: 30%;
     min-height: 22px;
     display: inline-block;
     padding: 10px;
@@ -131,4 +131,20 @@
     color: #999999;
     font-style: italic;
     line-height: 1.7;
+}
+
+.image-package img{
+    width: 80%;
+}
+
+.modal-body .btn{
+    color:white;
+    letter-spacing: 1px;
+    outline: none;
+    background-image: none;
+    background-color: #4db118;
+    border-color: #439b15;
+    font-size: 14px;
+    text-shadow: none;
+    box-shadow: none;
 }

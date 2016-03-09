@@ -9,11 +9,10 @@
 
 TODO:
 
-1. upload qiniu
-2. $(".header").css('display','block');
-3. create category
-4. home page heading set
+picture html
+- add
+- view
 
-#### picture html
+### 权限
 
 ---

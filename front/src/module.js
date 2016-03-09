@@ -60,8 +60,8 @@ svenModule.config(function($stateProvider, $urlRouterProvider) {
       controller: 'pictureController'
     })
     .state('profile', {
-      url: '/profile',
-      templateUrl: "modules/sven/templates/profile.html",
+      url: '/profile/{type:[0-9]+}',
+      templateUrl: "src/templates/category.html",
       controller: 'profileController'
     });
 });

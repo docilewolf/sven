@@ -32,6 +32,4 @@ public interface IProfileService {
      * @return
      */
     Profile deleteById(Long id)throws SvenException;
-
-    List<Profile> getListByCategoryId(Long id) throws SvenException;
 }

@@ -7,8 +7,10 @@ import com.mrlu.sven.common.SvenException;
 import com.mrlu.sven.dao.IPictureDao;
 import com.mrlu.sven.domain.Picture;
 import com.mrlu.sven.service.IPictureService;
+import com.mrlu.sven.service.util.QiniuUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -67,5 +69,10 @@ public class PictureServiceImpl implements IPictureService {
         }
         pictureDao.deleteById(id);
         return picture;
+    }
+
+    @Override
+    public String uploadQiniu(MultipartFile multipartFile) throws Exception{
+        return QiniuUtil.upload(multipartFile.getBytes(), multipartFile.getOriginalFilename());
     }
 }

@@ -4,6 +4,7 @@ import com.mrlu.sven.SearchParams.PictureParams;
 import com.mrlu.sven.common.ResultPage;
 import com.mrlu.sven.common.SvenException;
 import com.mrlu.sven.domain.Picture;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by xiexiyang on 15/4/11.
@@ -38,4 +39,6 @@ public interface IPictureService {
      * @return
      */
     Picture deleteById(Long id)throws SvenException;
+
+    String uploadQiniu(MultipartFile multipartFile)throws Exception;
 }

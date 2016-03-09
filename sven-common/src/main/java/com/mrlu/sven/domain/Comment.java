@@ -72,7 +72,7 @@ public class Comment implements Serializable{
     /**
     * 
     */
-    private Integer isdel;
+    private Integer isdel = 0;
     
     
     public Long getId(){

@@ -79,6 +79,7 @@ svenModule.directive('link', function ($rootScope) {
         link: function (scope, element) {
                 element.bind('click', function (event) {
                     scope.$apply(function () {
+                        //$rootScope.range = null;
                         $rootScope.range = initRange(rangy.getSelection());
                     });
                 })
@@ -87,7 +88,7 @@ svenModule.directive('link', function ($rootScope) {
 });
 
 //图片上传，此directive不会创建子的scope，会使用父scope
-svenModule.directive('uploadFile', function () {
+svenModule.directive('uploadFile', function ($upload, project) {
     return{
         restrict: 'EA',
         replace: false,
@@ -95,29 +96,19 @@ svenModule.directive('uploadFile', function () {
         scope:false,
         link: function (scope) {
             scope.onImgSelect = function (type, $files) {
-                scope.entity.imgUrl = "http://devfront.qdingnet.com/public/wallpaper/5.jpg";
-                /**
-                 upload: function ($files) {
-      var deferred = $q.defer();
-      var file = $files[0];
-      $injector.get('$upload').upload({
-        url: '/sysConfig/admin/upload/publicImageUpload',
-        method: 'POST',
-        file: file
-      }).then(function (res) {
-        deferred.resolve(res.imageUrl);
-        growl.addSuccessMessage('上传成功');
-      }, function (rej) {
-        growl.addErrorMessage(rej.message || '上传失败');
-        deferred.reject(rej);
-      }, function (e) {
-        growl.addInfoMessage('正在上传：' + parseInt(100 * e.loaded / e.total, 10));
-      });
-      return deferred.promise;
-    },
-                 *
-                 */
-                console.log($files[0]);
+                var file = $files[0];
+                $upload.upload({
+                    url: project.uri + '/admin/picture/uploadImage',
+                    method: 'POST',
+                    file: file
+                }).then(function (res) {
+                    console.log(res.entity);
+                    scope.entity.imgUrl = res.entity;
+                }, function (rej) {
+                    console.log('error');
+                }, function (e) {
+                    console.log('正在上传：' + parseInt(100 * e.loaded / e.total, 10));
+                });
             }
         }
     }

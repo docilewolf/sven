@@ -50,10 +50,11 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public void saveCategory(Category category)throws SvenException{
+    public Category saveCategory(Category category)throws SvenException{
         checkParams(category);
         category.setCreateAt(System.currentTimeMillis());
         categoryDao.insert(category);
+        return category;
     }
 
     private void checkParams(Category category)throws SvenException{
@@ -62,7 +63,7 @@ public class CategoryServiceImpl implements ICategoryService {
                 || StringUtils.isEmpty(category.getName())){
             throw new SvenException(HttpStatus.BAD_REQUEST.value(), "信息不全");
         }
-        if(category.getPid() != null){
+        if(!Long.valueOf(0L).equals(category.getPid())){
             Category parentCategory = categoryDao.selectById(category.getPid());
             if(parentCategory == null){
                 throw new SvenException(HttpStatus.BAD_REQUEST.value(), "父category不存在");

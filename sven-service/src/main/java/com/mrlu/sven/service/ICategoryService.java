@@ -22,7 +22,7 @@ public interface ICategoryService {
      * @param category
      * @return
      */
-    void saveCategory(Category category)throws SvenException;
+    Category saveCategory(Category category)throws SvenException;
 
     /**
      * 根据ID获取category

@@ -121,12 +121,4 @@
             limit #{startIndex}, #{pageSize}
         </if>
     </select>
-
-    <select id="getListByCategoryId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List" />
-        FROM profile
-        WHERE
-        category_id = #{id}
-    </select>
 </mapper>

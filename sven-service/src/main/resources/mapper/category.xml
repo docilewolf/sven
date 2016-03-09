@@ -19,7 +19,7 @@
     <insert id="insert" parameterType="com.mrlu.sven.domain.Category" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO category
         (
-          id,pid,name,create_at,type,isdel
+          id,pid,name,create_at,type
         )
         VALUES
         (

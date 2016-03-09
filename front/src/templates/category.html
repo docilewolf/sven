@@ -1,6 +1,6 @@
 <ul class="page-header list-unstyled clearfix category-header row-fluid">
-    <li ng-repeat="item in categoryList" ng-class="item.id == categoryId? 'active':''">
-        <a href="" class="common-a" ng-click="getContentByCategoryId(item)">{{item.name}}</a>
+    <li ng-repeat="item in itemList" ng-class="item.id == entityId? 'active':''">
+        <a href="" class="common-a" ng-click="query(item.id)">{{item.name}}</a>
     </li>
 </ul>
 <ul class="common-list category-content">
@@ -17,7 +17,7 @@
         </div>
     </li>
 </ul>
-<div class="load-more" ng-if="list.length > 0 && !initing">
+<div class="load-more" ng-if="list.length > 0 && !listEmpty">
     <button class="btn common-btn" ng-click="loadMore()" ng-if="!loading">点击查看更多</button>
     <div class="loading category-more" ng-if="loading"></div>
 </div>

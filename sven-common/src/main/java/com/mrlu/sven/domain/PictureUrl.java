@@ -11,7 +11,7 @@ public class PictureUrl {
     private String url;
 
     private Long createAt;
-    private Integer isdel;
+    private Integer isdel = 0;
 
     public Long getId() {
         return id;

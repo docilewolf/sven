@@ -2,7 +2,7 @@ a{
     color: #555555;
     text-decoration: none;
 }
-a:hover, a:active{
+a:hover, a:active, a:focus{
     color: black;
     text-decoration: none;
 }
@@ -28,7 +28,7 @@ blockquote {
     border-left: 5px solid #eeeeee;
 }
 
-.common-a, .common-a:active, .common-a:hover{
+.common-a, .common-a:active, .common-a:hover, .common-a:focus{
     color: #555555;
     text-decoration: none;
 }
@@ -154,4 +154,8 @@ button{
 .li-radio:hover, .li-radio.active{
     color: white;
     background-color: #e78170;
+}
+
+.no-padding{
+    padding: 0;
 }

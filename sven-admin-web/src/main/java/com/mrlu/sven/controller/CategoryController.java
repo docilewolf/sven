@@ -36,9 +36,9 @@ public class CategoryController extends MultiActionController {
      */
     @RequestMapping(value = "save",method= RequestMethod.POST)
     @ResponseBody
-    public void save(Category category) throws SvenException {
+    public Object save(Category category) throws SvenException {
         logger.info("[save category] " + JSON.toJSONString(category));
-        categoryService.saveCategory(category);
+        return categoryService.saveCategory(category);
     }
 
     /**

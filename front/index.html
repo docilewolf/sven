@@ -18,7 +18,7 @@
     <script type="text/javascript" src="src/services.js"></script>
     <script type="text/javascript" src="src/controllers.js"></script>
     <link type="image/x-icon" rel="shortcut icon" href="public/images/favicon.ico">
-    <link rel="stylesheet" href="http://front.qdingnet.com/public/fontawesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="public/Font-Awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="public/stylesheet/bootstrap.min.css">
     <link rel="stylesheet" href="public/stylesheet/bootstrap-theme.css">
     <link rel="stylesheet" href="src/common.css">
@@ -30,14 +30,14 @@
 <!--左侧菜单-->
     <div class="nav nav-sven">
         <div class="nav-menu">
-            <a href="#" class="active logo">
+            <a href="#" class="logo" ng-class="!menuli ? 'active':''" ng-click="menuli=0" title="首页">
                 <i class="fa fa-home"></i>
             </a>
-            <a href="#">
-                <i class="fa fa-th"></i>
+            <a href="" ui-sref="profile({type:1})" ng-class="menuli == 1 ? 'active':''" ng-click="menuli=1" title="文章">
+                <i class="fa fa-file-o"></i>
             </a>
-            <a href="#">
-                <i class="fa fa-users"></i>
+            <a href="" ui-sref="profile({type:2})" ng-class="menuli == 2 ? 'active':''" ng-click="menuli=2" title="图片">
+                <i class="fa fa-file-photo-o"></i>
             </a>
         </div>
     </div>
@@ -46,10 +46,10 @@
 
     <div class="header">
             <div class="pull-left">
-                <a href="#">
+                <a href="javascript:void(0)" class="header-a" onclick="toggleDisplayHeader('.header-essay', '.header-picture')">
                     <i class="fa fa-th"></i>
                 </a>
-                <a href="#">
+                <a href="javascript:void(0)" onclick="toggleDisplayHeader('.header-picture', '.header-essay')">
                     <i class="fa fa-list-ul"></i>
                 </a>
             </div>
@@ -64,11 +64,28 @@
                 </a>
             </div>
     </div>
+    <div class="header-content header-essay hide">
+        <ul class="header-ul">
+            <li ng-repeat="item in essayCategoryList">
+                <a href="" ui-sref="category({type:1, id: item.id})">
+                    <i class="fa fa-square fa-fw"></i><span ng-bind="item.name"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="header-content header-picture hide">
+        <ul class="header-ul">
+            <li ng-repeat="item in pictureCategoryList">
+                <a href="" ui-sref="category({type:2, id: item.id})">
+                    <i class="fa fa-square fa-fw"></i><span ng-bind="item.name"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
 
 <!--内容-->
     <div class="container">
         <div ui-view>
-
         </div>
     </div>
 

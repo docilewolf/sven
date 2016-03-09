@@ -1,6 +1,7 @@
 package com.mrlu.sven.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.mrlu.sven.SearchParams.PictureParams;
 import com.mrlu.sven.common.HandleModelResult;
 import com.mrlu.sven.common.ResultPage;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+
+import java.util.List;
 
 /**
  * Created by xiexiyang on 15/4/12.
@@ -76,8 +79,32 @@ public class PictureController extends MultiActionController {
         return pictureService.deleteById(id);
     }
 
-    public Object uploadQiniu(MultipartFile multipartFile){
+    /**
+     * 单个文件上传
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "uploadImage", method = RequestMethod.POST)
+    @ResponseBody
+    public Object uploadQiniu(MultipartFile file) throws Exception {
+        return pictureService.uploadQiniu(file);
+    }
 
-        return null;
+    /**
+     * 多文件上传
+     * @param files
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "uploadImages", method = RequestMethod.POST)
+    @ResponseBody
+    public Object uploadQiniu(MultipartFile[] files) throws Exception {
+        List<String> list = Lists.newArrayList();
+        for (MultipartFile multipartFile: files){
+            String fileUrl = pictureService.uploadQiniu(multipartFile);
+            list.add(fileUrl);
+        };
+        return list;
     }
 }

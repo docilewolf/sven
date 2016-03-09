@@ -47,7 +47,7 @@ public class Profile implements Serializable{
     /**
     * 
     */
-    private Integer isdel;
+    private Integer isdel = 0;
     
     /**
     * 文章id

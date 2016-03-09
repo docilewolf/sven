@@ -52,7 +52,7 @@ public class Essay implements Serializable{
     /**
     * 
     */
-    private Integer isdel;
+    private Integer isdel = 0;
     
     
     public Long getId(){
