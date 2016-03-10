@@ -1,5 +1,5 @@
 
-svenModule.controller('indexController', function($scope, $state, $timeout, profileService){
+svenModule.controller('indexController', function($scope, $state, $timeout, profileService, commonService){
   profileService.list().then(function(res){
     $scope.list = res.list;
     //在DOM渲染完之后，启用timeline动画效果
@@ -7,6 +7,10 @@ svenModule.controller('indexController', function($scope, $state, $timeout, prof
       initTimeline();
     })
   });
+  
+  $scope.profileDetail = function (profile) {
+    commonService.chooseNextStateForProfile(profile);
+  };
 });
 
 svenModule.controller('accountController', function ($scope, $state) {

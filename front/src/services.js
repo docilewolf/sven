@@ -176,11 +176,12 @@ svenModule.factory('commonService', function($q, $rootScope, $state){
             scope.query(scope.entityId);
             scope.init();
 
-            var nextState = scope.type == 1?"essay":"picture";
-            scope.goNextSate = function (profile) {
-                var entityId = profile.type == 1?profile.essayId:profile.pictureId;
-                $state.go(nextState, {id:entityId});
-            };
+            scope.goNextSate = this.chooseNextStateForProfile;
+        },
+        chooseNextStateForProfile: function (profile) {
+            var nextState = profile.type == 1?"essay":"picture";
+            var entityId = profile.type == 1?profile.essayId:profile.pictureId;
+            $state.go(nextState, {id:entityId});
         }
     }
-})
+});
