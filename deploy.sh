@@ -5,6 +5,9 @@ echo "git pull end**********"
 
 #前端目录
 PATH_FRONT=front
+#配置所在目录
+CONFIG_DIR=xxx
+CONFIG_ROOT=sven-service/src/main/resources/config
 #要部署的项目
 PROJECT_ROOT=sven-admin-web
 #要部署的项目的webapp目录
@@ -14,7 +17,7 @@ PATH_TARGET_ROOT=${PROJECT_ROOT}/target/adminbg
 #部署的地方
 WEB_ROOT=sven-admin-web/target/webroot
 #tomcat目录
-TOMCAT_ROOT=/home/stefan/programFiles/apache-tomcat-7.0.62
+TOMCAT_ROOT=xxx
 
 set -e
 
@@ -33,6 +36,18 @@ cp -rp $PATH_FRONT/* $PATH_SRC_ROOT/html
 
 echo "copy front src end*******"
 
+echo "copy config file start******"
+
+if [ -d "$CONFIG_ROOT" ]; then
+    rm -rf $CONFIG_ROOT
+fi
+mkdir $CONFIG_ROOT
+
+cp -fr ${CONFIG_DIR}/* $CONFIG_ROOT
+
+
+echo "copy config file end******"
+
 echo "request path add html/ start*****"
 
 sed -i "s/public\//html\/public\//g" `grep "public\/" -rl ${PATH_SRC_ROOT}/html`
@@ -42,7 +57,7 @@ echo "request path add html/ end*****"
 
 echo "maven package start*******"
 
-mvn clean package -U -Dmaven.test.skip=true
+mvn clean compile package -U -Dmaven.test.skip=true
 
 echo "maven package end*******"
 

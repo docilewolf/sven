@@ -14,8 +14,8 @@
     <bean id="configProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>file:${qding.conf.path}jdbc.properties</value>
-                <value>file:${qding.conf.path}qiniu.properties</value>
+                <value>classpath*:config/jdbc.properties</value>
+                <value>classpath*:config/qiniu.properties</value>
             </list>
         </property>
     </bean>
