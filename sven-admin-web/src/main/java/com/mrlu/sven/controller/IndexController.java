@@ -22,7 +22,7 @@ public class IndexController extends MultiActionController {
     @RequestMapping(value = "",method= RequestMethod.GET)
     public String welcome() throws Exception {
         logger.info("welcome rediect to index.jsp.");
-        return "redirect:/index.html";
+        return "index";
     }
 
 }
