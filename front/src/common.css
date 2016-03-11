@@ -83,9 +83,17 @@ button{
     line-height: 1.7;
 }
 
-.kalamu-area hr{
-    margin: 0 0 20px;
+.article hr, .kalamu-area hr{
+    margin: 5px 0 20px;
     border-top: 1px solid #d9d9d9;
+}
+
+.article .show-content p, .kalamu-area p{
+    margin: 0 0 20px 0;
+}
+
+.article .show-content p + hr, .kalamu-area p+hr{
+    margin: -15px 0 15px;
 }
 
 .icon{

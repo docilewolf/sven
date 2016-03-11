@@ -40,7 +40,7 @@ svenModule.controller('essayController', function ($scope, $state, $stateParams,
 svenModule.controller('newEssayController', function ($rootScope, $scope, $state, $modal, essayService, profileService, ProfileType) {
 
   $('.header').css("display", "none");
-
+  initEditPage();
   $scope.text = {};
   $scope.newLink = function () {
     $modal.open({
@@ -103,7 +103,6 @@ svenModule.controller('newEssayController', function ($rootScope, $scope, $state
       content: $scope.context,
       categoryId: profile.categoryId
     };
-    console.log(data);
     return essayService.save(data);
   };
 });

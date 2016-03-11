@@ -53,23 +53,46 @@ function selectFile(){
     $(".file-upload").click();
 }
 
+//编辑页面初始化 添加一个<p><br></p>标签
+function initEditPage(){
+    $('#content-area')[0].appendChild($('<p><br></p>')[0]);
+}
+
 //防止鼠标没有选择区域报错
+//鼠标未选择编辑区域时，会在编辑区域最后生成一个空<span>标签，防止hr标签生成到可编辑区域外边
 function initRange(selection){
     var parentNode = $('#content-area')[0];
     if(!selection.rangeCount || $(selection.anchorNode).parents('#content-area').length <= 0){
-        selection.collapse(parentNode, parentNode.childNodes.length);
+        var emptyNode = $('<span></span>');
+        parentNode.appendChild(emptyNode[0]);
+        selection.collapse(emptyNode[0], emptyNode[0].childNodes.length);
     }
     return selection.getRangeAt(0);
+}
+function initSelection(){
+    var selection = rangy.getSelection();
+    var range = initRange(selection);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    return selection;
+}
+//鼠标是否是在编辑区域，若不在，则不能插入图片，链接，hr，修改字体等
+function isInEditArea(){
+    var selection = rangy.getSelection();
+    if(!selection.rangeCount || $(selection.anchorNode).parents('#content-area').length <= 0){
+        return false;
+    }
+    return true;
 }
 
 //向鼠标选择区域(光标)插入指定html代码
 function insertHtml(tag, range){
     var selection = rangy.getSelection();
-    if(!range) range = initRange(selection);
     //selection.removeRange(selection.getRangeAt(0));
     selection.removeAllRanges();
     selection.addRange(range);
     document.execCommand("insertHTML",false,tag);
+    document.execCommand("insertHTML", false, "<p><br></p>")
 }
 
 //隐藏或显示类别

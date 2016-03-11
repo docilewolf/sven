@@ -70,8 +70,6 @@
 		<captcha.version>1.0-RC6</captcha.version>
 	</properties>
 
-
-
 	<build>
 		<resources>
 			<resource>
@@ -304,17 +302,6 @@
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${servlet_version}</version>
 				<scope>provided</scope>
-			</dependency>
-			<!-- add mongodb by mahui 2013.11.18 -->
-			<dependency>
-				<groupId>org.mongodb</groupId>
-				<artifactId>mongo-java-driver</artifactId>
-				<version>${mongo_version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jongo</groupId>
-				<artifactId>jongo</artifactId>
-				<version>${mongo_jongo_version}</version>
 			</dependency>
 			<!-- student pro -->
 			<dependency>

@@ -284,11 +284,16 @@ a.logo{
     font-size: 12px;
 }
 
-.article .show-content p{
-    margin: 0 0 25px 0;
-}
-
 .image-package{
     margin: 0 auto 20px;
     text-align: center;
+}
+
+.show-content a{
+    color:#4094c7;
+}
+.show-content a:hover{
+    color:#4094c7;
+    opacity: 0.7;
+    text-decoration: underline;
 }

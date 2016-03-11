@@ -25,6 +25,7 @@ svenModule.directive('font', function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
             element.bind('click', function(e) {
+                if(!isInEditArea()) return;
                 var selection = rangy.getSelection();
                 if (attrs.fontStyle) {
                     document.execCommand(attrs.fontStyle);
@@ -32,19 +33,26 @@ svenModule.directive('font', function() {
                 if (attrs.formatBlock) {
                     var changeNode = isFirstParentChange(selection.anchorNode, attrs.formatBlock);
                     if(changeNode){
-                        var newNode = document.createElement('p');
-                        newNode.innerHTML = changeNode[0].innerHTML;
-                        $(changeNode[0]).replaceWith('<p>' + $(changeNode[0]).html() + '</p>');
+                        document.execCommand("formatBlock", false, 'p'); //此种写法可代替下边这种写法
+                        //var newNode = document.createElement('p');
+                        //newNode.innerHTML = changeNode[0].innerHTML;
+                        //$(changeNode[0]).replaceWith('<p>' + $(changeNode[0]).html() + '</p>');
                     }else{
                         document.execCommand("formatBlock", false, attrs.formatBlock);
+                        //document.execCommand("formatBlock", false, 'p');
+                        //document.execCommand("insertHTML", false, "<p><br></p>")
+                        //blockNode.innerHTML = changeNode[0].innerHTML;
                     }
                 }
                 if(attrs.fontHr){
                     var node = getOutsideNode(selection.anchorNode);
                     if($(node).next()[0] && $(node).next()[0].tagName.toLowerCase() == 'hr'){
-                        $(node).next().remove();
+                        $(node).next().remove(); //remove hr
+                        $(node).next().remove(); //remove br
                     }else {
-                        $(node).after('<hr/>');
+                        $(node).after('<hr/><br>');
+                        //document.execCommand("insertHTML", false, "<p><br></p>")
+                        //document.execCommand("formatBlock", false, 'p')
                     }
                 }
                 e.stopPropagation();
@@ -62,7 +70,7 @@ svenModule.directive('font', function() {
             }
 
             function getOutsideNode(node){
-                while(!node.parentNode.id && node.parentNode.id !== 'content-area'){
+                while(!node &&!node.parentNode && !node.parentNode.id && node.parentNode.id !== 'content-area'){
                     node = node.parentNode;
                 }
                 return node;
@@ -76,12 +84,14 @@ svenModule.directive('link', function ($rootScope) {
     return {
         restrict: 'A',
         scope:false,
-        link: function (scope, element) {
+        link: function (scope, element, attr) {
                 element.bind('click', function (event) {
+                    if(!isInEditArea()) return;
+                    //$rootScope.range = null;
                     scope.$apply(function () {
-                        //$rootScope.range = null;
-                        $rootScope.range = initRange(rangy.getSelection());
-                    });
+                        $rootScope.range = rangy.getSelection().getRangeAt(0);
+                        attr.linkState == 1?scope.newLink():scope.newPicture();
+                    })
                 })
             }
     }
