@@ -173,8 +173,8 @@ svenModule.factory('commonService', function($q, $rootScope, $state){
                 scope.query(scope.entityId);
             }
 
-            scope.query(scope.entityId);
             scope.init();
+            scope.query(scope.entityId);
 
             scope.goNextSate = this.chooseNextStateForProfile;
         },

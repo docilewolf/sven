@@ -1,11 +1,14 @@
 <ul class="page-header list-unstyled clearfix category-header row-fluid">
     <li ng-repeat="item in itemList" ng-class="item.id == entityId? 'active':''">
-        <a href="" class="common-a" ng-click="query(item.id)">{{item.name}}</a>
+        <a href="" class="common-a">
+            <span ng-if="item.id != entityId" ng-click="query(item.id)">{{item.name}}</span>
+            <span ng-if="item.id == entityId">{{item.name}}</span>
+        </a>
     </li>
 </ul>
 <ul class="common-list category-content">
     <li ng-repeat="item in list">
-        <a class="wrap-img">
+        <a class="wrap-img" href="" ng-click="goNextSate(item)">
             <img src="" ng-src="{{item.imgUrl}}" />
         </a>
         <div>
