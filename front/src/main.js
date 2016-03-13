@@ -49,8 +49,8 @@ function scrollEvent (delta) {
 })();
 
 //触发文件上传事件时调用此函数，应注意需要触发angular的数据绑定
-function selectFile(){
-    $(".file-upload").click();
+function selectFile(dom){
+    $(dom).next('.file-upload').click();
 }
 
 //编辑页面初始化 添加一个<p><br></p>标签

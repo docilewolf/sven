@@ -1,12 +1,16 @@
 <ul class="page-header list-unstyled clearfix category-header row-fluid">
     <li ng-repeat="item in itemList" ng-class="item.id == entityId? 'active':''">
-        <a href="" class="common-a">
-            <span ng-if="item.id != entityId" ng-click="query(item.id)">{{item.name}}</span>
-            <span ng-if="item.id == entityId">{{item.name}}</span>
+        <a href="" class="common-a" ng-if="item.id != entityId" ng-click="query(item.id)">
+            <span>{{item.name}}</span>
+        </a>
+        <a href="" class="common-a" ng-if="item.id == entityId">
+            <span>{{item.name}}</span>
         </a>
     </li>
 </ul>
-<ul class="common-list category-content">
+
+<!--文章Profile显示-->
+<ul class="common-list category-content" ng-if="type == 1">
     <li ng-repeat="item in list">
         <a class="wrap-img" href="" ng-click="goNextSate(item)">
             <img src="" ng-src="{{item.imgUrl}}" />
@@ -20,7 +24,26 @@
         </div>
     </li>
 </ul>
-<div class="load-more" ng-if="list.length > 0 && !listEmpty">
+<div class="load-more" ng-if="list.length > 0 && !listEmpty && type == 1">
     <button class="btn common-btn" ng-click="loadMore()" ng-if="!loading">点击查看更多</button>
     <div class="loading category-more" ng-if="loading"></div>
+</div>
+
+<!--图片Profile显示-->
+<div class="picture-content" ng-if="type == 2">
+    <div class="box" ng-repeat="item in list">
+        <div class="pic">
+            <div class="box-relative" ng-class="{'pull-left':item.isFloat, '{{item.index}}':true}">
+                <a href="" ng-click="goNextSate(item)">
+                    <div class="desc div-box div-box-top" ng-class="{'div-{{item.index}}':true}">
+                        <p>{{item.name}}</p>
+                    </div>
+                    <img src="" ng-src="{{item.imgUrl}}"/>
+                    <div class="desc div-box div-box-buttom" ng-class="{'div-{{item.index}}':true}">
+                        <p>{{item.description}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

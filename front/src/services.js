@@ -56,7 +56,7 @@ svenModule.factory('essayService', function ($http, project) {
 svenModule.factory('memberService', function ($http) {
 });
 
-svenModule.factory('pictureService', function ($http, project) {
+svenModule.factory('pictureService', function ($http, project, $modal, $timeout) {
     return {
         getPicturesById: function(id){
             return $http({
@@ -64,6 +64,34 @@ svenModule.factory('pictureService', function ($http, project) {
                 params: {
                     id: id
                 }
+            })
+        },
+        save: function (data) {
+            return $http({
+                url: project.uri + '/admin/picture/save',
+                method: 'POST',
+                data:data
+            })
+        },
+        allPicture: function (profile) {
+            console.log(profile);
+            $modal.open({
+                templateUrl: 'src/templates/picture.html',
+                controller: [
+                    '$scope',
+                    function (scope) {
+                        $http({
+                            url: project.uri + '/admin/picture/getById',
+                            params: {id:profile.pictureId}
+                        }).then(function (res) {
+                            scope.list= res.list;
+                            scope.entity = angular.extend(res.entity,profile);
+                            $timeout(function () {
+                                pictureInit();
+                            })
+                        })
+                    }
+                ]
             })
         }
     }
@@ -85,8 +113,9 @@ svenModule.factory('profileService', function ($http, $modal, $rootScope, projec
                         };
                         scope.newCategory = function () {
                             categoryService.newCategory(scope.entity, scope.categoryList);
-                        }
+                        };
                         scope.confirm = function () {
+                            scope.processing = true;
                             callback(scope.entity).then(function (res) {
                                 var result = res.entity;
                                 scope.entity.type==1? scope.entity.essayId = result.id: scope.entity.pictureId = result.id;
@@ -96,10 +125,13 @@ svenModule.factory('profileService', function ($http, $modal, $rootScope, projec
                                     data: scope.entity
                                 }).then(function (response) {
                                     scope.$close();
-                                    scope.entity.type==1?$state.go('essay',{id:result.id}): $state.go('picture',{id:result.id});
+                                    scope.entity.type==1?$state.go('essay',{id:result.id}): $state.go('profile',{type:2});
+                                }, function () {
+                                })['finally'](function () {
+                                    scope.processing = false;
                                 });
                             }, function (rej) {
-                                
+                                scope.processing = false;
                             });
                         }
                     }
@@ -111,11 +143,30 @@ svenModule.factory('profileService', function ($http, $modal, $rootScope, projec
                 url: project.uri + '/admin/profile/list',
                 params: params
             })
+        },
+        displayPicture: function (scope, params) {
+            if(scope.type == 2) { //图片的时候做处理
+                scope.list.forEach(function (item,index) {
+                    item.index = 'box-index-'+index; //每个box绑定独立的事件
+                    var num =   parseInt(Math.random()*9+1);
+                    item.isFloat= num%2==0;
+                });
+                params.timeout(function () {
+                    scope.list.forEach(function (item) {
+                        $('.'+item.index).mouseover(function () {
+                            $('.div-'+item.index).css('display', 'block');
+                        });
+                        $('.'+item.index).mouseout(function () {
+                            $('.div-'+item.index).css('display', 'none');
+                        });
+                    })
+                })
+            }
         }
     }
 });
 
-svenModule.factory('commonService', function($q, $rootScope, $state){
+svenModule.factory('commonService', function($q, $rootScope, $state, $timeout, pictureService){
     return {
         //加载外部js文件
         getScript: function(url){
@@ -136,7 +187,7 @@ svenModule.factory('commonService', function($q, $rootScope, $state){
                 }
             }
         },
-        getProfileList: function(scope, id, list, service){
+        getProfileList: function(scope, id, list, service, callback){
             scope.entityId = id;
             scope.itemList = list;
             scope.query = function (entityId) {
@@ -150,6 +201,7 @@ svenModule.factory('commonService', function($q, $rootScope, $state){
                     else scope.listEmpty = false;
                     if(scope.list) scope.list = scope.list.concat(res.list);
                     else scope.list = res.list;
+                    callback(scope, {timeout: $timeout});
                     scope.loading = false;
                 })
             }
@@ -179,9 +231,7 @@ svenModule.factory('commonService', function($q, $rootScope, $state){
             scope.goNextSate = this.chooseNextStateForProfile;
         },
         chooseNextStateForProfile: function (profile) {
-            var nextState = profile.type == 1?"essay":"picture";
-            var entityId = profile.type == 1?profile.essayId:profile.pictureId;
-            $state.go(nextState, {id:entityId});
+            profile.type == 1?$state.go("essay", {id:profile.essayId}):pictureService.allPicture(profile);
         }
     }
 });

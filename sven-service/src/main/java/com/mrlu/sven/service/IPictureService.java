@@ -6,6 +6,8 @@ import com.mrlu.sven.common.SvenException;
 import com.mrlu.sven.domain.Picture;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 /**
  * Created by xiexiyang on 15/4/11.
  */
@@ -23,7 +25,7 @@ public interface IPictureService {
      * @param picture
      * @return
      */
-    void savePicture(Picture picture);
+    Picture savePicture(PictureParams picture);
 
     void updatePicture(Picture picture)throws SvenException;
     /**
@@ -31,7 +33,7 @@ public interface IPictureService {
      * @param id
      * @return
      */
-    Picture getById(Long id);
+    Map<String, Object> getById(Long id);
 
     /**
      * 删除picture

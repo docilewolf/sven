@@ -297,3 +297,7 @@ a.logo{
     opacity: 0.7;
     text-decoration: underline;
 }
+/*message*/
+.growl { top: 50px; z-index: 9999; left: 50%; margin-left: -125px; font-size: 14px; }
+.growl .alert { padding: 10px; text-align: center; }
+.growl .alert-success .close { display: none; }

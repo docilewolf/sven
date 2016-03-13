@@ -1,0 +1,21 @@
+<div class="page-header">
+    <div class="upload-file">
+        <upload-file multiple="multiple"></upload-file>
+    </div>
+    <div class="header-save">
+        <button class="header-btn" data-action="trigger-save" data-toggle="tooltip" data-original-title="保存" ng-click="save()">
+            <i class="fa fa-floppy-o"></i> 保存</button>
+    </div>
+</div>
+<div class="page-body">
+    <div class="box" ng-repeat="item in list">
+        <div class="pic box-relative">
+            <div class="pic-del-icon">
+                <a href="" ng-click="delPic(item)">
+                    <i class="fa fa-times-circle-o"></i>
+                </a>
+            </div>
+            <img src="" ng-src="{{item}}"/>
+        </div>
+    </div>
+</div>

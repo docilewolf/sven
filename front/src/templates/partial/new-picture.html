@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body">
     <form class="form-horizontal" name="form">
-        <div class="icon icon-center">
+        <!--<div class="icon icon-center">
             <span class="pointer" ng-click="type = 0">本地图片</span>
             <span>&nbsp;或&nbsp;</span>
             <span class="pointer" ng-click="type = 1">网络图片</span>
@@ -15,6 +15,12 @@
         <div class="icon icon-center" ng-if="type == 1">
             <span class="icon-input"><i class="fa fa-link"></i></span>
             <input type="text" class="form-control value-input" ng-model="entity.imgUrl" required/>
+        </div>-->
+        <div class="icon icon-center">
+            <upload-file></upload-file>
+            <div ng-if="entity.imgUrl">
+                <img src="" ng-src="{{entity.imgUrl}}" />
+            </div>
         </div>
     </form>
 </div>

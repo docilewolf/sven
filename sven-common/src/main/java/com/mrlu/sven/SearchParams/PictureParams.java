@@ -14,6 +14,8 @@ public class PictureParams extends Picture{
 
     private int size;
 
+    private String[] pictureUrlList;
+
     public HashMap<String,Object> toParamsMap(){
         HashMap<String,Object> paramsMap = Maps.newHashMap();
         Field[] fieldList = this.getClass().getDeclaredFields();
@@ -55,5 +57,13 @@ public class PictureParams extends Picture{
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public String[] getPictureUrlList() {
+        return pictureUrlList;
+    }
+
+    public void setPictureUrlList(String[] pictureUrlList) {
+        this.pictureUrlList = pictureUrlList;
     }
 }

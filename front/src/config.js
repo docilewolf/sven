@@ -96,6 +96,13 @@ svenModule.config(function ($httpProvider) {
                         });
                     }
 
+                    /*if(res.code != 200){
+                        $injector.get('growl').addErrorMessage("保存失败");
+                        return $q.reject({
+                            message: '保存失败'
+                        });
+                    }*/
+
                     // 默认自动拆包
                     if (response.config.autoparse !== false) {
                         return [0, 200].indexOf(res.code) !== -1 ? $q.when(res.data) : $q.reject(res.data);

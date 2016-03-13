@@ -111,6 +111,9 @@ button{
 .icon span{
     font-size: 16px;
 }
+.icon img{
+    max-width: 100%
+}
 
 .icon .pointer:hover{
     cursor: pointer;
@@ -129,8 +132,12 @@ button{
     margin-right: -1px;
     vertical-align: top;
 }
+.icon-input.icon-input-upload{
+    width: 16%;
+}
+
 .value-input{
-    width: 66%;
+    width: 64%;
     height: 42px;
     display: inline-block;
     border-radius: 0;

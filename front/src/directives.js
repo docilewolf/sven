@@ -104,21 +104,43 @@ svenModule.directive('uploadFile', function ($upload, project) {
         replace: false,
         templateUrl: 'src/templates/partial/upload-file.html',
         scope:false,
-        link: function (scope) {
+        link: function (scope, element, attr) {
+            if(attr.multiple){
+                scope.isMultiple = true;
+                scope.list = [];
+            }
             scope.onImgSelect = function (type, $files) {
-                var file = $files[0];
-                $upload.upload({
+                var param = {
                     url: project.uri + '/admin/picture/uploadImage',
                     method: 'POST',
-                    file: file
-                }).then(function (res) {
-                    console.log(res.entity);
-                    scope.entity.imgUrl = res.entity;
+                    fileFormDataName: 'files',
+                    file: $files
+                };
+                $upload.upload(param).then(function (res) {
+                    if(scope.isMultiple){
+                        scope.list = scope.list.concat(res.list);
+                    }else{
+                        scope.entity.imgUrl = res.list[0];
+                    }
                 }, function (rej) {
                     console.log('error');
                 }, function (e) {
                     console.log('正在上传：' + parseInt(100 * e.loaded / e.total, 10));
                 });
+            };
+            
+            scope.netWorkUrl = function () {
+                var networkUrls = scope.entity.netWorkUrl.split(';');
+                if(networkUrls.length <= 0) return;
+                if(scope.isMultiple) {
+                    var urls = [];
+                    networkUrls.forEach(function (item) {
+                        if (scope.list.indexOf(item) < 0 && urls.indexOf(item) < 0) urls.push(item)
+                    });
+                    scope.list = scope.list.concat(urls)
+                }else{
+                    scope.entity.imgUrl=networkUrls[0];
+                }
             }
         }
     }

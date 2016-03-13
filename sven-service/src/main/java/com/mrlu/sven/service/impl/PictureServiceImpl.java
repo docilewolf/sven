@@ -1,20 +1,26 @@
 package com.mrlu.sven.service.impl;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.mrlu.sven.SearchParams.PictureParams;
 import com.mrlu.sven.common.PageUtil;
 import com.mrlu.sven.common.ResultPage;
 import com.mrlu.sven.common.SvenException;
 import com.mrlu.sven.dao.IPictureDao;
+import com.mrlu.sven.dao.IPictureUrlDao;
 import com.mrlu.sven.domain.Picture;
+import com.mrlu.sven.domain.PictureUrl;
 import com.mrlu.sven.service.IPictureService;
 import com.mrlu.sven.service.util.QiniuUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiexiyang on 15/4/11.
@@ -24,6 +30,9 @@ public class PictureServiceImpl implements IPictureService {
 
     @Resource(name="pictureDao")
     private IPictureDao pictureDao;
+
+    @Resource(name = "pictureUrlDao")
+    private IPictureUrlDao pictureUrlDao;
 
     @Override
     public ResultPage<Picture> getResultPage(PictureParams pictureParams) {
@@ -40,8 +49,24 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public void savePicture(Picture picture) {
+    public Picture savePicture(PictureParams picture) {
+        picture.setCreateAt(System.currentTimeMillis());
+        //先存储picture，得到id
         pictureDao.insert(picture);
+
+        //再存储url，一对多关系
+        List<PictureUrl> pictureUrllist = Lists.newArrayList();
+        for(String url: picture.getPictureUrlList()){
+            PictureUrl pictureUrl = new PictureUrl();
+            pictureUrl.setCreateAt(System.currentTimeMillis());
+            pictureUrl.setPictureId(picture.getId());
+            pictureUrl.setUrl(url);
+            pictureUrllist.add(pictureUrl);
+        }
+        if(!CollectionUtils.isEmpty(pictureUrllist)){
+            pictureUrlDao.batchInsert(pictureUrllist);
+        }
+        return picture;
     }
 
     @Override
@@ -54,11 +79,14 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public Picture getById(Long id) {
-        
-        Picture picture = pictureDao.selectById(id);
+    public Map<String, Object> getById(Long id) {
 
-        return picture;
+        List<PictureUrl> pictureUrlList = pictureUrlDao.selectByPictureId(id);
+        Picture picture = pictureDao.selectById(id);
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("pictureUrlList", pictureUrlList);
+        map.put("picture", picture);
+        return map;
     }
 
     @Override

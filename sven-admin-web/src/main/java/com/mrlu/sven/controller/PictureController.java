@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiexiyang on 15/4/12.
@@ -43,9 +46,9 @@ public class PictureController extends MultiActionController {
      */
     @RequestMapping(value = "save",method= RequestMethod.POST)
     @ResponseBody
-    public void save(Picture picture) {
+    public Object save(PictureParams picture) {
         logger.info("[save picture] " + JSON.toJSONString(picture));
-        pictureService.savePicture(picture);
+        return pictureService.savePicture(picture);
     }
 
     /**
@@ -80,31 +83,19 @@ public class PictureController extends MultiActionController {
     }
 
     /**
-     * 单个文件上传
-     * @param file
+     * 文件上传，支持单文件和多文件
+     * @param files
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "uploadImage", method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadQiniu(MultipartFile file) throws Exception {
-        return pictureService.uploadQiniu(file);
-    }
-
-    /**
-     * 多文件上传
-     * @param files
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "uploadImages", method = RequestMethod.POST)
-    @ResponseBody
-    public Object uploadQiniu(MultipartFile[] files) throws Exception {
+    public Object uploadQiniu(@RequestParam("files")MultipartFile[] files) throws Exception {
         List<String> list = Lists.newArrayList();
-        for (MultipartFile multipartFile: files){
-            String fileUrl = pictureService.uploadQiniu(multipartFile);
+        for (MultipartFile file: files){
+            String fileUrl = pictureService.uploadQiniu(file);
             list.add(fileUrl);
-        };
+        }
         return list;
     }
 }

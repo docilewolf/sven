@@ -72,7 +72,7 @@
     line-height: 20px;
 }
 
-.rich-text .toolbar button{
+.rich-text .toolbar button, .page-header .header-btn{
     padding: 11px 14px;
     display: inline-block;
     line-height: 17px;
@@ -81,7 +81,7 @@
     outline: none;
 }
 
-.rich-text .toolbar button:hover{
+.rich-text .toolbar button:hover, .page-header .header-btn:hover{
     color: white;
     background-color: black;
 }
@@ -97,7 +97,7 @@
     border-radius: 90%;
 }*/
 
-.modal-body .file-input{
+.modal-body .file-input, .page-header .file-input{
     cursor: pointer;
     width: 50%;
     padding: 10px;
@@ -109,7 +109,7 @@
     text-align: center;
 }
 
-.modal-body .file-upload{
+.modal-body .file-upload, .page-header .file-upload{
     display: none;
 }
 
@@ -137,7 +137,7 @@
     width: 100%;
 }
 
-.modal-body .btn{
+.modal-body .btn, .page-header .btn{
     color:white;
     letter-spacing: 1px;
     outline: none;

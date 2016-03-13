@@ -59,6 +59,11 @@ svenModule.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "src/templates/picture.html",
       controller: 'pictureController'
     })
+    .state('newPicture', {
+      url: '/newPicture',
+      templateUrl: "src/templates/newPicture.html",
+      controller: 'newPictureController'
+    })
     .state('profile', {
       url: '/profile/{type:[0-9]+}',
       templateUrl: "src/templates/category.html",

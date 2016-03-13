@@ -20,6 +20,9 @@
             <label class="col-sm-3 text-right">图片：</label>
             <div class="icon col-sm-7">
                 <upload-file></upload-file>
+                <div ng-if="entity.imgUrl">
+                    <img src="" ng-src="{{entity.imgUrl}}" />
+                </div>
             </div>
         </div>
         <div class="form-group">
