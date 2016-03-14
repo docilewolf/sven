@@ -21,9 +21,6 @@ public class MemberController extends MultiActionController {
     @Autowired
     protected IMemberService memberService;
 
-    /**
-     * member列表
-     */
     @RequestMapping(value = "list",method= RequestMethod.GET)
     @ResponseBody
     public Object list(MemberParams memberParams) {
@@ -31,9 +28,6 @@ public class MemberController extends MultiActionController {
         return memberService.getResultPage(memberParams);
     }
 
-    /**
-     * 更新member
-     */
     @RequestMapping(value = "update",method= RequestMethod.POST)
     @ResponseBody
     public void update(Member member) throws SvenException {
@@ -41,9 +35,6 @@ public class MemberController extends MultiActionController {
         memberService.updateMember(member);
     }
 
-    /**
-     * 根据ID获取member
-     */
     @RequestMapping(value = "getById",method= RequestMethod.GET)
     @ResponseBody
     public Object getById(Long id) {

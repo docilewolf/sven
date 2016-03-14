@@ -55,27 +55,33 @@ public class PictureServiceImpl implements IPictureService {
         pictureDao.insert(picture);
 
         //再存储url，一对多关系
+        savePictureUrl(picture);
+
+        return picture;
+    }
+
+    @Override
+    public void updatePicture(PictureParams picture) throws SvenException {
+        Picture oldPicture = pictureDao.selectById(picture.getId());
+        if(oldPicture == null){
+            throw new SvenException(HttpStatus.BAD_REQUEST.value(), "picture不存在");
+        }
+        pictureUrlDao.deleteByPictureId(picture.getId());
+        savePictureUrl(picture);
+    }
+
+    private void savePictureUrl(PictureParams pictureParams){
         List<PictureUrl> pictureUrllist = Lists.newArrayList();
-        for(String url: picture.getPictureUrlList()){
+        for(String url: pictureParams.getPictureUrlList()){
             PictureUrl pictureUrl = new PictureUrl();
             pictureUrl.setCreateAt(System.currentTimeMillis());
-            pictureUrl.setPictureId(picture.getId());
+            pictureUrl.setPictureId(pictureParams.getId());
             pictureUrl.setUrl(url);
             pictureUrllist.add(pictureUrl);
         }
         if(!CollectionUtils.isEmpty(pictureUrllist)){
             pictureUrlDao.batchInsert(pictureUrllist);
         }
-        return picture;
-    }
-
-    @Override
-    public void updatePicture(Picture picture) throws SvenException {
-        Picture oldPicture = pictureDao.selectById(picture.getId());
-        if(oldPicture == null){
-            throw new SvenException(HttpStatus.BAD_REQUEST.value(), "picture不存在");
-        }
-        pictureDao.update(picture);
     }
 
     @Override

@@ -30,11 +30,28 @@
         )
     </insert>
 
-    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectByParam" resultMap="BaseResultMap" parameterType="com.mrlu.sven.domain.Profile" >
       select 
         <include refid="Base_Column_List" />
       from profile
-      where id = #{id}
+      <where>
+          <if test="type != null">
+             type = #{type}
+          </if>
+          <if test="essayId != null">
+             and essay_id = #{essayId}
+          </if>
+          <if test="pictureId != null">
+              and picture_id = #{pictureId}
+          </if>
+      </where>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from profile
+        WHERE id = #{id}
     </select>
 
     <delete id="deleteById" parameterType="java.lang.Long" >
@@ -121,4 +138,23 @@
             limit #{startIndex}, #{pageSize}
         </if>
     </select>
+
+    <update id="update" parameterType="com.mrlu.sven.domain.Profile">
+        UPDATE profile
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="imgUrl != null">
+                img_url = #{imgUrl},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 </mapper>

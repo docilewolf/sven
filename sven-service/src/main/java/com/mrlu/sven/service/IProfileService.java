@@ -12,24 +12,13 @@ import java.util.List;
  */
 public interface IProfileService {
 
-    /**
-     * 获取分页数据
-     * @param profileParams
-     * @return
-     */
     ResultPage<Profile> getResultPage(ProfileParams profileParams);
 
-    /**
-     * 保存profile
-     * @param profile
-     * @return
-     */
     Profile saveProfile(Profile profile)throws SvenException;
 
-    /**
-     * 删除profile
-     * @param id
-     * @return
-     */
     Profile deleteById(Long id)throws SvenException;
+
+    void updateProfile(Profile profile)throws SvenException;
+
+    Object getByParam(Profile profile);
 }

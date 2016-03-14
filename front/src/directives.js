@@ -6,6 +6,8 @@ svenModule.directive('contenteditable', function() {
         link: function(scope, element, attrs, ngModel) {
             // view -> model
             element.bind('blur keyup change', function() {
+                if(!element.html().endsWith('<p><br></p>'))
+                    $(element).append('<p><br></p>');
                 scope.$apply(function() {
                     ngModel.$setViewValue(element.html());
                 });

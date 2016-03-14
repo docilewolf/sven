@@ -63,11 +63,21 @@ svenModule.controller('essayController', function ($scope, $state, $stateParams,
   })
 });
 
-svenModule.controller('newEssayController', function ($rootScope, $scope, $state, $modal, essayService, profileService, ProfileType) {
-
+svenModule.controller('newEssayController', function ($rootScope, $scope, $state, $stateParams, $modal, essayService, profileService, ProfileType) {
+  //页面初始化
   $('.header').css("display", "none");
-  initEditPage();
-  $scope.text = {};
+
+  $scope.data = {};
+  if($stateParams.id){
+    $scope.isEdit = true;
+    essayService.getEassyById($stateParams.id).then(function (res) {
+      $scope.data = res.entity;
+    })
+  }else{
+    initEditPage();
+  }
+
+
   $scope.newLink = function () {
     $modal.open({
       templateUrl: 'src/templates/partial/new-link.html',
@@ -111,25 +121,21 @@ svenModule.controller('newEssayController', function ($rootScope, $scope, $state
   };
 
   /*转换成html格式*/
-  $scope.$watch('context', function (newValue, oldValue) {
-  });
+  /*$scope.$watch('context', function (newValue, oldValue) {
+  });*/
 
   $scope.save = function () {
-    if(!$scope.title){
+    if(!$scope.data.name){
       alert("请输入标题");
       return;
     }
-    profileService.newProfile(ProfileType.ESSAY, $scope.confirm)
+    profileService.newProfile(ProfileType.ESSAY, $scope.confirm, $scope.isEdit, $scope.data)
   };
 
   $scope.confirm = function (profile) {
-    var data = {
-      name: $scope.title,
-      description: profile.description,
-      content: $scope.context,
-      categoryId: profile.categoryId
-    };
-    return essayService.save(data);
+    $scope.data.description = profile.description;
+    $scope.data.categoryId = profile.categoryId;
+    return $scope.isEdit?essayService.update($scope.data):essayService.save($scope.data);
   };
 });
 
@@ -152,8 +158,21 @@ svenModule.controller('profileController', function ($scope, $state, $stateParam
   commonService.getProfileList($scope, $stateParams.type, $scope.itemList, profileService, profileService.displayPicture);
 });
 
-svenModule.controller('newPictureController', function ($scope, $state, pictureService, profileService, ProfileType) {
+svenModule.controller('newPictureController', function ($scope, $state, $stateParams, pictureService, profileService, ProfileType) {
   $scope.entity ={};
+
+  if($stateParams.id){
+    $scope.isEdit = true;
+    pictureService.getPicturesById($stateParams.id).then(function (res) {
+      $scope.entity = res.entity;
+      $scope.list = [];
+      res.list.forEach(function (item) {
+        if($scope.list.indexOf(item.url) < 0)
+          $scope.list.push(item.url);
+      });
+    })
+  }
+
   $scope.delPic = function (item) {
     var index = $scope.list.indexOf(item);
     if(index >= 0) $scope.list.splice(index, 1);
@@ -163,13 +182,14 @@ svenModule.controller('newPictureController', function ($scope, $state, pictureS
       alert("请上传图片");
       return;
     }
-    profileService.newProfile(ProfileType.PICTURE, $scope.confirm);
+    profileService.newProfile(ProfileType.PICTURE, $scope.confirm, $scope.isEdit, $scope.entity);
   };
   $scope.confirm = function (profile) {
     var data = {
       pictureUrlList: $scope.list,
       categoryId: profile.categoryId
     };
-    return pictureService.save(data);
+    if($scope.isEdit) data.id=$scope.entity.id;
+    return $scope.isEdit?pictureService.update(data):pictureService.save(data);
   }
 });

@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-/**
- * Created by xiexiyang on 15/4/12.
- */
 @Controller
 @RequestMapping("/admin/essay")
 public class EssayController extends MultiActionController {
@@ -24,9 +21,6 @@ public class EssayController extends MultiActionController {
     @Autowired
     protected IEssayService essayService;
 
-    /**
-     * essay列表
-     */
     @RequestMapping(value = "list",method= RequestMethod.GET)
     @ResponseBody
     public Object list(EssayParams essayParams) {
@@ -34,9 +28,6 @@ public class EssayController extends MultiActionController {
         return essayService.getResultPage(essayParams);
     }
 
-    /**
-     * 新增essay
-     */
     @RequestMapping(value = "save",method= RequestMethod.POST)
     @ResponseBody
     public Object save(Essay essay) {
@@ -44,9 +35,6 @@ public class EssayController extends MultiActionController {
         return essayService.saveEssay(essay);
     }
 
-    /**
-     * 更新essay
-     */
     @RequestMapping(value = "update",method= RequestMethod.POST)
     @ResponseBody
     public void update(Essay essay) throws SvenException {
@@ -54,9 +42,6 @@ public class EssayController extends MultiActionController {
         essayService.updateEssay(essay);
     }
 
-    /**
-     * 根据ID获取essay
-     */
     @RequestMapping(value = "getById",method= RequestMethod.GET)
     @ResponseBody
     public Object getById(Long id) {
@@ -65,9 +50,6 @@ public class EssayController extends MultiActionController {
     }
 
 
-    /**
-     * 删除essay
-     */
     @RequestMapping(value = "deleteById",method= RequestMethod.POST)
     @ResponseBody
     public Object deleteById(Long id) throws SvenException {

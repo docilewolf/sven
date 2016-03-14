@@ -21,9 +21,6 @@ public class CategoryController extends MultiActionController {
     @Autowired
     protected ICategoryService categoryService;
 
-    /**
-     * category列表
-     */
     @RequestMapping(value = "list",method= RequestMethod.GET)
     @ResponseBody
     public Object list(CategoryParams categoryParams) {
@@ -31,9 +28,6 @@ public class CategoryController extends MultiActionController {
         return categoryService.getResultPage(categoryParams);
     }
 
-    /**
-     * 新增category
-     */
     @RequestMapping(value = "save",method= RequestMethod.POST)
     @ResponseBody
     public Object save(Category category) throws SvenException {
@@ -41,9 +35,6 @@ public class CategoryController extends MultiActionController {
         return categoryService.saveCategory(category);
     }
 
-    /**
-     * 更新category
-     */
     @RequestMapping(value = "update",method= RequestMethod.POST)
     @ResponseBody
     public void update(Category category) throws SvenException {
@@ -51,10 +42,6 @@ public class CategoryController extends MultiActionController {
         categoryService.updateCategory(category);
     }
 
-    /**
-     * 根据ID获取category
-     * return: profileList
-     */
     @RequestMapping(value = "getById",method= RequestMethod.GET)
     @ResponseBody
     public Object getById(Long id) {
@@ -63,9 +50,6 @@ public class CategoryController extends MultiActionController {
     }
 
 
-    /**
-     * 删除category
-     */
     @RequestMapping(value = "deleteById",method= RequestMethod.POST)
     @ResponseBody
     public Object deleteById(Long id) throws SvenException {

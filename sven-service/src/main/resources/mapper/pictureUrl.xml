@@ -34,10 +34,8 @@
       where picture_id = #{id}
     </select>
 
-    <delete id="deleteById" parameterType="java.lang.Long" >
-      update picture_url
-      set isdel = 1
-      where id = #{id}
+    <delete id="deleteByPictureId" parameterType="java.lang.Long" >
+      DELETE FROM picture_url where picture_id = #{id}
     </delete>
 
 </mapper>

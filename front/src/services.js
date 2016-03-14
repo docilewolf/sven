@@ -49,6 +49,13 @@ svenModule.factory('essayService', function ($http, project) {
                 url: project.uri + '/admin/essay/save',
                 data: data
             })
+        },
+        update: function (data) {
+            return $http({
+                method: 'POST',
+                url: project.uri + '/admin/essay/update',
+                data: data
+            })
         }
     }
 });
@@ -69,6 +76,13 @@ svenModule.factory('pictureService', function ($http, project, $modal, $timeout)
         save: function (data) {
             return $http({
                 url: project.uri + '/admin/picture/save',
+                method: 'POST',
+                data:data
+            })
+        },
+        update: function (data) {
+            return $http({
+                url: project.uri + '/admin/picture/update',
                 method: 'POST',
                 data:data
             })
@@ -99,7 +113,7 @@ svenModule.factory('pictureService', function ($http, project, $modal, $timeout)
 
 svenModule.factory('profileService', function ($http, $modal, $rootScope, project, $state, categoryService) {
     return{
-        newProfile: function (profileType, callback) {
+        newProfile: function (profileType, callback, isEdit, originData) {
             $modal.open({
                 templateUrl: 'src/templates/partial/new-profile.html',
                 controller: [
@@ -107,6 +121,18 @@ svenModule.factory('profileService', function ($http, $modal, $rootScope, projec
                     function (scope) {
                         scope.entity = {};
                         scope.entity.type = profileType;
+                        if(isEdit){
+                            var params = {
+                                type: profileType
+                            };
+                            profileType == 1?params.essayId=originData.id:params.pictureId=originData.id;
+                            $http({
+                                url: project.uri+'/admin/profile/getByParam',
+                                params:params
+                            }).then(function (res) {
+                                scope.entity = res.entity;
+                            })
+                        }
                         scope.categoryList = 1 == profileType?$rootScope.essayCategoryList:$rootScope.pictureCategoryList;
                         scope.choose = function (item) {
                             scope.entity.categoryId = item.id;
@@ -117,11 +143,13 @@ svenModule.factory('profileService', function ($http, $modal, $rootScope, projec
                         scope.confirm = function () {
                             scope.processing = true;
                             callback(scope.entity).then(function (res) {
-                                var result = res.entity;
+                                var result;
+                                isEdit?result=originData:result = res.entity;
                                 scope.entity.type==1? scope.entity.essayId = result.id: scope.entity.pictureId = result.id;
+                                var url = isEdit?'/admin/profile/update':'/admin/profile/save';
                                 $http({
                                     method: 'POST',
-                                    url: project.uri+'/admin/profile/save',
+                                    url: project.uri+url,
                                     data: scope.entity
                                 }).then(function (response) {
                                     scope.$close();

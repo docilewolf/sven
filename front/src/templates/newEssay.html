@@ -1,7 +1,7 @@
 <div class="writing-mode">
     <div class="main">
         <form class="rich-text" data-note-id="2570894">
-            <input class="title" name="note_title" ng-model="title" />
+            <input class="title" name="note_title" ng-model="data.name" />
             <div id="editor" class="kalamu-box">
                 <ul class="toolbar clearfix">
                     <li class="">
@@ -41,7 +41,7 @@
                             <i class="fa fa-floppy-o"></i> 保存</button>
                     </li>
                 </ul>
-                <div content-text id="content-area" class="kalamu-area mousetrap" contenteditable="true" ng-model="context">
+                <div content-text id="content-area" class="kalamu-area mousetrap" contenteditable="true" ng-model="data.content">
                 </div>
             </div>
         </form>

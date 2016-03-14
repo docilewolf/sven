@@ -44,12 +44,23 @@
 
     <update id="update" parameterType="com.mrlu.sven.domain.Essay">
         UPDATE essay
-        SET
-        name = #{ name },
-        description = #{ description },
-        content = #{ content },
-        category_id = #{ categoryId },
-        updateAt = #{ updateAt },
+        <set>
+            <if test="name != null">
+                name = #{ name },
+            </if>
+            <if test="description != null">
+                description = #{ description },
+            </if>
+            <if test="content != null">
+                content = #{ content },
+            </if>
+            <if test="categoryId != null">
+                category_id = #{ categoryId },
+            </if>
+            <if test="updateAt != null">
+                update_at = #{ updateAt },
+            </if>
+        </set>
         WHERE
         id = #{ id }
     </update>

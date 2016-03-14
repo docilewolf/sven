@@ -16,9 +16,6 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * Created by xiexiyang on 15/4/12.
- */
 @Controller
 @RequestMapping("/admin/comment")
 public class CommentController extends MultiActionController {
@@ -26,9 +23,6 @@ public class CommentController extends MultiActionController {
     @Autowired
     protected ICommentService commentService;
 
-    /**
-     * comment列表
-     */
     @RequestMapping(value = "list",method= RequestMethod.GET)
     @ResponseBody
     public Object list(CommentParams commentParams) {
@@ -36,9 +30,6 @@ public class CommentController extends MultiActionController {
         return commentService.getResultPage(commentParams);
     }
 
-    /**
-     * 新增comment
-     */
     @RequestMapping(value = "save",method= RequestMethod.POST)
     @ResponseBody
     public void save(Comment comment, HttpSession session) throws SvenException {
@@ -47,9 +38,6 @@ public class CommentController extends MultiActionController {
         commentService.saveComment(comment, accountId);
     }
 
-    /**
-     * 删除comment
-     */
     @RequestMapping(value = "deleteById",method= RequestMethod.POST)
     @ResponseBody
     public Object deleteById(Long id) throws SvenException {

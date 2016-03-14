@@ -66,4 +66,18 @@ public class ProfileServiceImpl implements IProfileService {
         profileDao.deleteById(id);
         return profile;
     }
+
+    @Override
+    public void updateProfile(Profile profile) throws SvenException {
+        Profile oldProfile = profileDao.selectById(profile.getId());
+        if(oldProfile == null){
+            throw new SvenException(HttpStatus.BAD_REQUEST.value(), "profile不存在");
+        }
+        profileDao.update(profile);
+    }
+
+    @Override
+    public Object getByParam(Profile profile) {
+        return profileDao.selectByParam(profile);
+    }
 }

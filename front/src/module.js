@@ -49,6 +49,11 @@ svenModule.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "src/templates/newEssay.html",
       controller: 'newEssayController'
     })
+    .state('editEssay', {
+      url: '/editEssay/{id:[0-9]+}',
+      templateUrl: "src/templates/newEssay.html",
+      controller: 'newEssayController'
+    })
     .state('member', {
       url: '/member',
       templateUrl: "modules/sven/templates/member.html",
@@ -61,6 +66,11 @@ svenModule.config(function($stateProvider, $urlRouterProvider) {
     })
     .state('newPicture', {
       url: '/newPicture',
+      templateUrl: "src/templates/newPicture.html",
+      controller: 'newPictureController'
+    })
+    .state('editPicture', {
+      url: '/editPicture/{id:[0-9]+}',
       templateUrl: "src/templates/newPicture.html",
       controller: 'newPictureController'
     })

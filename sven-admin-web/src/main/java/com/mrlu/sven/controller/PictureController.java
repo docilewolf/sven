@@ -21,9 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by xiexiyang on 15/4/12.
- */
 @Controller
 @RequestMapping("/admin/picture")
 public class PictureController extends MultiActionController {
@@ -31,9 +28,6 @@ public class PictureController extends MultiActionController {
     @Autowired
     protected IPictureService pictureService;
 
-    /**
-     * picture列表
-     */
     @RequestMapping(value = "list",method= RequestMethod.GET)
     @ResponseBody
     public Object list(PictureParams pictureParams) {
@@ -41,9 +35,6 @@ public class PictureController extends MultiActionController {
         return pictureService.getResultPage(pictureParams);
     }
 
-    /**
-     * 新增picture
-     */
     @RequestMapping(value = "save",method= RequestMethod.POST)
     @ResponseBody
     public Object save(PictureParams picture) {
@@ -51,19 +42,13 @@ public class PictureController extends MultiActionController {
         return pictureService.savePicture(picture);
     }
 
-    /**
-     * 更新picture
-     */
     @RequestMapping(value = "update",method= RequestMethod.POST)
     @ResponseBody
-    public void update(Picture picture) throws SvenException {
+    public void update(PictureParams picture) throws SvenException {
         logger.info("[update picture] " + JSON.toJSONString(picture));
         pictureService.updatePicture(picture);
     }
 
-    /**
-     * 根据ID获取picture
-     */
     @RequestMapping(value = "getById",method= RequestMethod.GET)
     @ResponseBody
     public Object getById(Long id) {
@@ -72,9 +57,6 @@ public class PictureController extends MultiActionController {
     }
 
 
-    /**
-     * 删除picture
-     */
     @RequestMapping(value = "deleteById",method= RequestMethod.POST)
     @ResponseBody
     public Object deleteById(Long id) throws SvenException {

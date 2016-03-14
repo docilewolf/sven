@@ -27,7 +27,7 @@ public interface IPictureService {
      */
     Picture savePicture(PictureParams picture);
 
-    void updatePicture(Picture picture)throws SvenException;
+    void updatePicture(PictureParams picture)throws SvenException;
     /**
      * 根据ID获取picture
      * @param id

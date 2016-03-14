@@ -11,5 +11,5 @@ public interface IPictureUrlDao {
 
     public List<PictureUrl> selectByPictureId(Long id);
 
-    public void deleteById(Long id);
+    public void deleteByPictureId(Long id);
 }
