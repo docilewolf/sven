@@ -61,11 +61,15 @@
                 </a>
             </div>
             <div class="pull-right">
-                <a href="#">
+                <a href="" ng-if="!auth" ui-sref="login">
                     <i class="fa fa-sign-in"></i>
                     登陆
                 </a>
-                <a href="#">
+                <a href="javascript:" ng-if="auth">
+                    <i class="fa fa-user"></i>
+                    <span ng-bind="account.userName"></span>
+                </a>
+                <a href="" ng-if="auth" ng-click="logout()">
                     <i class="fa fa-sign-out"></i>
                     退出
                 </a>

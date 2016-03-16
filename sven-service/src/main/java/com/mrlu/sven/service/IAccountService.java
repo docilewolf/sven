@@ -5,6 +5,8 @@ import com.mrlu.sven.common.SvenException;
 import com.mrlu.sven.SearchParams.AccountParams;
 import com.mrlu.sven.domain.Account;
 
+import java.util.Map;
+
 /**
  * Created by xiexiyang on 15/4/11.
  */
@@ -29,8 +31,9 @@ public interface IAccountService {
      * @param id
      * @return
      */
-    Account getById(Long id);
+    Map<String, Object> getById(Long id)throws SvenException;
 
+    Map<String, Object> getUserInfo(Account account)throws SvenException;
     /**
      * 删除account
      * @param id

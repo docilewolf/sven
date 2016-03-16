@@ -78,5 +78,10 @@ svenModule.config(function($stateProvider, $urlRouterProvider) {
       url: '/profile/{type:[0-9]+}',
       templateUrl: "src/templates/category.html",
       controller: 'profileController'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: "src/templates/login.html",
+      controller: 'loginController'
     });
 });

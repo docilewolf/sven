@@ -2,6 +2,7 @@ package com.mrlu.sven.common;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -19,15 +20,6 @@ public class HandleModelResult {
         for(Object entity: entitys){
             if(entity instanceof List){
                 result.setList((List) entity);
-            }else if(entity instanceof Map){
-                for(Object key: ((Map) entity).keySet()){
-                    Object value = ((Map) entity).get(key);
-                    if(value instanceof List){
-                        result.setList((List) value);
-                    }else{
-                        result.setEntity(value);
-                    }
-                }
             }else if(entity instanceof ResultPage){
                 result.setResultPage((ResultPage) entity);
             }else{
@@ -56,6 +48,12 @@ public class HandleModelResult {
     public static ModelResult return500ModelResult(){
         ModelResult result = new ModelResult(ModelResult.CODE_500);
         result.setMessage("服务器异常");
+        return result;
+    }
+
+    public static ModelResult return401ModelResult(){
+        ModelResult result = new ModelResult(HttpStatus.UNAUTHORIZED.value());
+        result.setMessage("没有认证");
         return result;
     }
 }

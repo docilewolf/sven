@@ -31,8 +31,8 @@
     </insert>
 
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-      select 
-        <include refid="Base_Column_List" />
+      select
+        id,user_name,email,mobile,type,status,create_at,update_at
       from account
       where id = #{id}
     </select>

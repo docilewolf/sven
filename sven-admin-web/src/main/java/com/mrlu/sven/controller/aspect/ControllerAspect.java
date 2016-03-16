@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
  */
 @Aspect
 public class ControllerAspect {
-    @Around("execution(* com.mrlu.sven.controller..*.*(..)) && !@annotation(NotAspect)")
+    @Around("execution(* com.mrlu.sven.controller.*.*(..)) && !@annotation(NotAspect)")
     public Object doAround(ProceedingJoinPoint pjp){
         try {
             Object result = pjp.proceed();

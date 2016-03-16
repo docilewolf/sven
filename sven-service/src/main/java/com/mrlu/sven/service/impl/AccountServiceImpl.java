@@ -5,6 +5,7 @@ import com.mrlu.sven.common.ResultPage;
 import com.mrlu.sven.common.SvenException;
 import com.mrlu.sven.dao.IMemberDao;
 import com.mrlu.sven.domain.Member;
+import com.mrlu.sven.service.util.AccountUtil;
 import com.mrlu.sven.util.AccountStatusEnum;
 import com.mrlu.sven.util.AccountTypeEnum;
 import com.mrlu.sven.SearchParams.AccountParams;
@@ -21,6 +22,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiexiyang on 15/4/11.
@@ -60,6 +62,7 @@ public class AccountServiceImpl implements IAccountService {
         }
 
         //设置账户信息
+        account.setPassword(AccountUtil.generatePassword(account.getPassword()));
         account.setType(AccountTypeEnum.USER.getValue());
         account.setCreateAt(System.currentTimeMillis());
         account.setUpdateAt(System.currentTimeMillis());
@@ -83,11 +86,21 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public Account getById(Long id) {
-        
+    public Map<String, Object> getById(Long id) throws SvenException{
+        if(null == id) throw new SvenException(HttpStatus.BAD_REQUEST.value(), "账户不存在");
         Account account = accountDao.selectById(id);
+        if(null == account) throw new SvenException(HttpStatus.BAD_REQUEST.value(), "账户不存在");
+        Member member = memberDao.selectByAccountId(id);
+        Map<String, Object> resultMap = Maps.newHashMap();
+        resultMap.put("account", account);
+        resultMap.put("member", member);
+        return resultMap;
+    }
 
-        return account;
+    @Override
+    public Map<String, Object> getUserInfo(Account account) throws SvenException {
+        if(null == account) throw new SvenException(HttpStatus.BAD_REQUEST.value(), "账户不存在");
+        return getById(account.getId());
     }
 
     @Override
@@ -106,8 +119,9 @@ public class AccountServiceImpl implements IAccountService {
         HashMap<String, Object> map = Maps.newHashMap();
         map.put("userName", account.getUserName());
         Account userAccount = accountDao.getAccountByParams(map);
-        if(userAccount == null || !userAccount.getPassword().equals(account.getPassword())){
-            throw new SvenException(HttpStatus.BAD_REQUEST.value(), "账号或密码不能正确");
+        String password = AccountUtil.generatePassword(account.getPassword());
+        if(userAccount == null || !userAccount.getPassword().equals(password)){
+            throw new SvenException(HttpStatus.BAD_REQUEST.value(), "账号或密码不正确");
         }
         return userAccount;
     }

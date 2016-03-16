@@ -64,6 +64,11 @@ svenModule.controller('essayController', function ($scope, $state, $stateParams,
 });
 
 svenModule.controller('newEssayController', function ($rootScope, $scope, $state, $stateParams, $modal, essayService, profileService, ProfileType) {
+  if(!$rootScope.auth){
+    $state.go('profile',{type:1});
+    return;
+  }
+
   //页面初始化
   $('.header').css("display", "none");
 
@@ -158,7 +163,12 @@ svenModule.controller('profileController', function ($scope, $state, $stateParam
   commonService.getProfileList($scope, $stateParams.type, $scope.itemList, profileService, profileService.displayPicture);
 });
 
-svenModule.controller('newPictureController', function ($scope, $state, $stateParams, pictureService, profileService, ProfileType) {
+svenModule.controller('newPictureController', function ($rootScope, $scope, $state, $stateParams, pictureService, profileService, ProfileType) {
+  if(!$rootScope.auth){
+    $state.go('profile',{type:2});
+    return;
+  }
+
   $scope.entity ={};
 
   if($stateParams.id){
@@ -191,5 +201,14 @@ svenModule.controller('newPictureController', function ($scope, $state, $statePa
     };
     if($scope.isEdit) data.id=$scope.entity.id;
     return $scope.isEdit?pictureService.update(data):pictureService.save(data);
+  }
+});
+
+svenModule.controller('loginController', function ($rootScope, $scope, accountService, $state) {
+  $scope.entity = {};
+  $scope.confirm = function () {
+    accountService.login($scope.entity).then(function (res) {
+      $rootScope.$emit("login");
+    });
   }
 });

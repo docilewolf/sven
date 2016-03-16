@@ -129,7 +129,7 @@ svenModule.value('project', {name: 'svenbg', uri: '/svenbg'});
 svenModule.value('ProfileType', {ESSAY:1, PICTURE:2});
 
 //底部导航栏内容
-svenModule.run(function($rootScope){
+svenModule.run(function($rootScope, accountService, $state){
     $rootScope.aboutme = [
         {
             name: "关于我们",
@@ -139,26 +139,68 @@ svenModule.run(function($rootScope){
             name: "联系我",
             url: "http://sports.sina.com.cn"
         }
-    ]
+    ];
+
+    $rootScope.logout = function () {
+        accountService.logout().then(function () {
+            $rootScope.$emit("logout");
+        })
+    }
 });
 
 //认证：
-/*svenModule.run(function($rootScope, $injector){
-    $rootScope.on('noauth', function(){
-        $injector.get("$state").go('welcome');
+svenModule.run(function($rootScope, project, $http, $state){
+    $rootScope.$on('noauth', function(){
+        $state.go('welcome');
     });
+    $rootScope.$on("logout", function () {
+            $rootScope.auth = false;
+            $rootScope.account = null;
+            $rootScope.member = null;
+            $state.go('welcome');
+    });
+    $rootScope.$on("login", function (entity) {
+        $rootScope.auth = true;
+        $rootScope.account = entity.account;
+        $rootScope.member = entity.member;
+        $state.go('welcome');
+    });
+});
 
-    $rootScope.on('error', function(){
-        $injector.get("$state").go('500');
+//获取用户信息
+/*svenModule.run(function ($rootScope, $http, project) {
+    $http({
+        url: project.uri + '/admin/account/getUserInfo'
+    }).then(function (res) {
+        $rootScope.auth = true;
+        $rootScope.account = res.entity.account;
+        $rootScope.member = res.entity.member;
+    }, function (rej) {
+        $rootScope.auth = false;
+        $rootScope.account = null;
+        $rootScope.member = null;
     })
 })*/
 
 //页面跳转
-svenModule.run(function ($rootScope) {
+svenModule.run(function ($rootScope, $http, project) {
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         if($('.header').css('display') == 'none') $('.header').css('display', 'block');
         if(!$('.header-essay').hasClass('hide')) $('.header-essay').addClass('hide');
         if(!$('.header-picture').hasClass('hide')) $('.header-picture').addClass('hide');
+
+        //获取用户信息
+        $http({
+            url: project.uri + '/admin/account/getUserInfo'
+        }).then(function (res) {
+            $rootScope.auth = true;
+            $rootScope.account = res.entity.account;
+            $rootScope.member = res.entity.member;
+        }, function (rej) {
+            $rootScope.auth = false;
+            $rootScope.account = null;
+            $rootScope.member = null;
+        })
     })
 })
 

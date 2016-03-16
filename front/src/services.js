@@ -1,5 +1,20 @@
 
-svenModule.factory('accountService', function ($http) {
+svenModule.factory('accountService', function ($http, project) {
+    return{
+        login: function (data) {
+            return $http({
+                url: project.uri + '/admin/account/login',
+                method: 'POST',
+                data: data
+            })
+        },
+        logout: function () {
+            return $http({
+                url: project.uri + '/admin/account/logout',
+                method: 'POST'
+            })
+        }
+    }
 });
 
 svenModule.factory('categoryService', function ($http, project, $modal) {
@@ -98,8 +113,8 @@ svenModule.factory('pictureService', function ($http, project, $modal, $timeout)
                             url: project.uri + '/admin/picture/getById',
                             params: {id:profile.pictureId}
                         }).then(function (res) {
-                            scope.list= res.list;
-                            scope.entity = angular.extend(res.entity,profile);
+                            scope.list= res.entity.pictureUrlList;
+                            scope.entity = angular.extend(res.entity.picture,profile);
                             $timeout(function () {
                                 pictureInit();
                             })
