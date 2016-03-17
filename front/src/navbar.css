@@ -1,4 +1,5 @@
 body{
+    min-width: 960px;
     color: #555555;
     font-size: 14px;
     font-family: Helvetica, Arial, "Hiragino Sans GB", sans-serif;

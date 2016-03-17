@@ -32,23 +32,23 @@ public class AccountController extends MultiActionController {
 
     @RequestMapping(value = "register",method= RequestMethod.POST)
     @ResponseBody
-    public void register(Account account, HttpServletResponse response) throws SvenException {
+    public Object register(Account account, HttpServletResponse response) throws SvenException {
         logger.info("new user register accountInfo: " + JSON.toJSONString(account));
         accountService.saveAccount(account);
-        ContextUtil.setCookie(account, response);
+        return ContextUtil.setCookie(account, response);
     }
 
     @RequestMapping(value = "login",method= RequestMethod.POST)
     @ResponseBody
-    public void login(Account account, HttpServletResponse response) throws SvenException {
+    public Object login(Account account, HttpServletResponse response) throws SvenException {
         logger.info("new user login accountInfo: " + JSON.toJSONString(account));
-        ContextUtil.setCookie(accountService.login(account), response);
+        return ContextUtil.setCookie(accountService.login(account), response);
     }
 
     @RequestMapping(value = "logout",method= RequestMethod.POST)
     @ResponseBody
-    public void logout(HttpServletRequest request, HttpServletResponse response){
-        ContextUtil.rmCookie(request, response);
+    public Object logout(HttpServletRequest request, HttpServletResponse response){
+        return ContextUtil.rmCookie(request, response);
     }
 
     @RequestMapping(value = "getUserInfo",method= RequestMethod.GET)

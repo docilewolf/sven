@@ -24,11 +24,11 @@ public class ContextUtil {
      * @param account
      * @param response
      */
-    public static void setCookie(Account account, HttpServletResponse response){
+    public static boolean setCookie(Account account, HttpServletResponse response){
         String sessionId = AccountUtil.generateSessionId(account);
         Cookie cookie = new Cookie(cookieName,sessionId);
-        //有效时间1个月
-        cookie.setMaxAge(3600*24*30);
+        //cookie存在于会话期
+        cookie.setMaxAge(-1);
         //所有路径
         cookie.setPath("/");
         response.addCookie(cookie);
@@ -46,22 +46,22 @@ public class ContextUtil {
         }else{
             cookieMap.put(sessionId, account);
         }
+        return true;
     }
 
     /**
      * 删除cookie
      * @param request
      */
-    public static void rmCookie(HttpServletRequest request, HttpServletResponse response){
+    public static boolean rmCookie(HttpServletRequest request, HttpServletResponse response){
         Cookie cookie = getJsidCookie(request);
         if(null != cookie && cookieMap.get(cookie.getValue()) != null){
             cookieMap.remove(cookie.getValue());
+            //删除浏览器cookie
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
         }
-
-        //删除浏览器cookie
-        cookie = new Cookie(cookieName, "");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        return true;
     }
 
     /**

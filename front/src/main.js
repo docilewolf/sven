@@ -102,6 +102,9 @@ $(document).on('click', function (event) {
 });
 
 function handleHeader(div, event){
+    if(!$('.header-a')[0]){
+        return;
+    }
     var aLeft = $('.header-a')[0].offsetLeft;
     var aTop = $('.header-a')[0].offsetTop;
     var aWith = $('.header-a')[0].clientWidth;

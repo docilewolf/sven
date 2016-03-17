@@ -159,10 +159,9 @@ svenModule.run(function($rootScope, project, $http, $state){
             $rootScope.member = null;
             $state.go('welcome');
     });
-    $rootScope.$on("login", function (entity) {
+    $rootScope.$on("login", function () {
+        $rootScope.isLogin = false;
         $rootScope.auth = true;
-        $rootScope.account = entity.account;
-        $rootScope.member = entity.member;
         $state.go('welcome');
     });
 });

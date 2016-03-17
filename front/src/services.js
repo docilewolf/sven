@@ -13,6 +13,13 @@ svenModule.factory('accountService', function ($http, project) {
                 url: project.uri + '/admin/account/logout',
                 method: 'POST'
             })
+        },
+        register: function (data) {
+            return $http({
+                url: project.uri + '/admin/account/register',
+                method: 'POST',
+                data: data
+            })
         }
     }
 });

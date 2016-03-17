@@ -1,0 +1,52 @@
+.login-main{
+    padding: 30px 0 25px;
+}
+.login-main .action h4{
+    text-align: center;
+    margin: 50px auto 50px;
+    border-bottom: 1px solid #eeeeee;
+}
+.login-main .action span{
+    position: relative;
+    top: 8px;
+    background-color: white;
+}
+.login-main .action span a{
+    color: #b1b1b1;
+}
+.login-main .action span a.active{
+    font-weight: bold;
+    color: #555;
+}
+.login-main .form-horizontal .input-span{
+    padding: 14px;
+    text-align: center;
+    border: 1px solid #cccccc;
+    vertical-align: middle;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    border-radius: 1px;
+    margin-right: -5px;
+}
+
+.login-main .form-horizontal input{
+    display: inline-block;
+    height: 46px;
+    width: 68%;
+}
+
+.form-horizontal{
+    padding: 0 25% 0 35%;
+}
+
+.login-main button{
+    width: 88%;
+    background-image: none;
+    background-color: #049cdb;
+    color: white;
+    font-size: 20px;
+    margin-right: 0;
+}
+
+.noty_bar{
+    padding:10px;
+}

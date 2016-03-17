@@ -1,17 +1,60 @@
-<form class="form-horizontal">
-    <div class="form-group">
-        <label class="col-sm-3">用户名：</label>
-        <div class="col-sm-7">
-            <input type="text" class="form-control" ng-model="entity.userName" />
+<div class="login-main">
+    <div class="action">
+        <h4>
+            <span>
+                <a href="" ng-class="{'active': isSign}" ng-click="isSign = true">登陆</a>
+                <b>·</b>
+                <a href="" ng-class="{'active': !isSign}" ng-click="isSign = false">注册</a>
+            </span>
+        </h4>
+    </div>
+    <form class="form-horizontal" name="form">
+        <div class="form-group">
+            <span class="input-span"><i class="fa fa-user"></i></span>
+            <input type="text" placeholder="请输入用户名" class="form-control" ng-model="entity.userName" required/>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3">密码：</label>
-        <div class="col-sm-7">
-            <input type="text" class="form-control" ng-model="entity.password" />
+        <div class="form-group">
+            <span class="input-span"><i class="fa fa-unlock-alt"></i></span>
+            <input type="password" placeholder="请输入密码" class="form-control" ng-model="entity.password" ng-minlength="6" required/>
+            <span class="text-danger">至少输入6位密码</span>
         </div>
-    </div>
-    <div class="form-group">
-        <button class="btn btn-primary" ng-click="confirm()">确定</button>
-    </div>
-</form>
+        <div class="form-group" ng-if="!isSign">
+            <span class="input-span"><i class="fa fa-unlock-alt"></i></span>
+            <input type="password" placeholder="请再次输入密码" class="form-control" ng-model="entity.againPassword" ng-minlength="6" required/>
+            <span ng-if="entity.password != entity.againPassword" class="text-danger">与原密码不一致</span>
+        </div>
+        <div class="form-group">
+            <button class="btn" ng-click="confirm()" ng-disabled="form.$invalid || (!isSign && entity.password != entity.againPassword)">
+                <span ng-if="isSign">登陆</span>
+                <span ng-if="!isSign">注册</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var errMessageNode = $('<ul id="noty_container" class="i-am-new"' +
+    'style="top: 20px; position: fixed; list-style-type: none; z-index: 10000000; left: 45%; padding: 0; width: 10%;">' +
+    '<li class="i-am-closing-now" ' +
+    'style="overflow: hidden; border-color: darkred; color: rgb(255, 255, 255); border-radius: 5px; cursor: pointer; background-color: rgb(229, 140, 124);">' +
+    '<div class="noty_bar"> ' +
+    '<div class="noty_message" style="font-size: 13px; text-align: center; font-weight: bold;"><span id="text-span" ' +
+    'class="noty_text"></span></div>' +
+    '</div>' +
+    '</li>' +
+    '</ul>');
+    function hiddenNotyContainer(message){
+        $(".login-main").append(errMessageNode);
+        $("#text-span").append(message);
+        var originHeight = 40;
+        function heightChange(){
+            $(".i-am-closing-now").css("height", (originHeight--)+"px");
+            if(originHeight == 0){
+                clearInterval(heightInterval);
+                $("#text-span")[0].innerHTML = null;
+                $("#noty_container").remove();
+            }
+        }
+        var heightInterval = setInterval(heightChange, 50);
+    }
+</script>

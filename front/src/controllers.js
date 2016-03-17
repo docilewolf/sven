@@ -205,10 +205,25 @@ svenModule.controller('newPictureController', function ($rootScope, $scope, $sta
 });
 
 svenModule.controller('loginController', function ($rootScope, $scope, accountService, $state) {
+  $('.header').css("display", "none");
   $scope.entity = {};
+  $rootScope.isLogin = true;
+
+  $scope.isSign = $rootScope.isSign;
+  if($scope.isSign == undefined || $scope.isSign == null) $scope.isSign = true;
   $scope.confirm = function () {
-    accountService.login($scope.entity).then(function (res) {
-      $rootScope.$emit("login");
-    });
+    $scope.isSign?
+      accountService.login($scope.entity).then(function (res) {
+        $rootScope.$emit("login");
+      }, function (rej) {
+        $scope.errorMessage = rej.message || "服务器异常";
+        hiddenNotyContainer($scope.errorMessage);
+      }):
+      accountService.register($scope.entity).then(function (res) {
+        $rootScope.$emit("login");
+      }, function (rej) {
+        $scope.errorMessage = rej.message || "服务器异常";
+        hiddenNotyContainer($scope.errorMessage);
+      })
   }
 });
