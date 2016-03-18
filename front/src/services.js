@@ -20,6 +20,14 @@ svenModule.factory('accountService', function ($http, project) {
                 method: 'POST',
                 data: data
             })
+        },
+        getInfoByIds: function (ids) {
+            return $http({
+                url: project.uri + '/admin/account/getByIds',
+                params:{
+                    ids: ids
+                }
+            })
         }
     }
 });
@@ -52,7 +60,46 @@ svenModule.factory('categoryService', function ($http, project, $modal) {
     }
 });
 
-svenModule.factory('commentService', function($http) {
+svenModule.factory('commentService', function($http, project, accountService) {
+    return{
+        list: function (params) {
+            return $http({
+                url: project.uri + '/admin/comment/list',
+                params: params
+            })
+        },
+        save: function (data) {
+            return $http({
+                method: 'POST',
+                url: project.uri + '/admin/comment/save',
+                data: data
+            })
+        },
+        commentUserInfo: function (list) {
+            var accountList = [];
+            var accountIdList = [];
+            list.forEach(function (item) {
+                if(accountIdList.indexOf(item.fromAccountId) < 0) accountIdList.push(item.fromAccountId);
+            });
+            accountService.getInfoByIds(accountIdList.join(",")).then(function (res) {
+                res.list.forEach(function (item) {
+                    var index = accountIdList.indexOf(item.id);
+                    if(index >= 0) accountList.splice(index, 0, item);
+                });
+                console.log(accountList)
+                list.forEach(function (item) {
+                    var toIndex = accountIdList.indexOf(item.toAccountId);
+                    if(toIndex >= 0 && item.type==30){
+                        item.content = "<span style='color:blue'>@" + accountList[toIndex].userName + "</span> " + item.content;
+                    }
+                    var fromIndex = accountIdList.indexOf(item.fromAccountId);
+
+                    fromIndex >= 0?
+                        item.userName = accountList[fromIndex].userName: "匿名用户";
+                })
+            });
+        }
+    }
 });
 
 svenModule.factory('essayService', function ($http, project) {

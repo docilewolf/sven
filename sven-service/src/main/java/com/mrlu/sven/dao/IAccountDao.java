@@ -18,4 +18,6 @@ public interface IAccountDao {
     public void deleteById(Long id);
 
     Account getAccountByParams(HashMap<String, Object> map);
+
+    List<Account> selectByIds(String[] split);
 }

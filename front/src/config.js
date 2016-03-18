@@ -125,8 +125,8 @@ svenModule.config(function ($httpProvider) {
 
 
 //项目部署名称
-svenModule.value('project', {name: 'svenbg', uri: '/svenbg'});
-svenModule.value('ProfileType', {ESSAY:1, PICTURE:2});
+svenModule.constant('project', {name: 'svenbg', uri: '/svenbg'});
+svenModule.constant('ProfileType', {ESSAY:1, PICTURE:2});
 
 //底部导航栏内容
 svenModule.run(function($rootScope, accountService, $state){
@@ -149,7 +149,7 @@ svenModule.run(function($rootScope, accountService, $state){
 });
 
 //认证：
-svenModule.run(function($rootScope, project, $http, $state){
+svenModule.run(function($rootScope, project, $http, $state, $window){
     $rootScope.$on('noauth', function(){
         $state.go('welcome');
     });
@@ -157,12 +157,12 @@ svenModule.run(function($rootScope, project, $http, $state){
             $rootScope.auth = false;
             $rootScope.account = null;
             $rootScope.member = null;
-            $state.go('welcome');
     });
     $rootScope.$on("login", function () {
         $rootScope.isLogin = false;
         $rootScope.auth = true;
-        $state.go('welcome');
+        $rootScope.oldHref?$window.location.href = $rootScope.oldHref:
+            $state.go('welcome');
     });
 });
 
@@ -187,7 +187,6 @@ svenModule.run(function ($rootScope, $http, project) {
         if($('.header').css('display') == 'none') $('.header').css('display', 'block');
         if(!$('.header-essay').hasClass('hide')) $('.header-essay').addClass('hide');
         if(!$('.header-picture').hasClass('hide')) $('.header-picture').addClass('hide');
-
         //获取用户信息
         $http({
             url: project.uri + '/admin/account/getUserInfo'

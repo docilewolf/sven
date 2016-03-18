@@ -5,6 +5,7 @@ import com.mrlu.sven.common.SvenException;
 import com.mrlu.sven.SearchParams.AccountParams;
 import com.mrlu.sven.domain.Account;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,4 +43,6 @@ public interface IAccountService {
     Account deleteById(Long id)throws SvenException;
 
     Account login(Account account)throws SvenException;
+
+    List<Account> getByIds(String ids);
 }

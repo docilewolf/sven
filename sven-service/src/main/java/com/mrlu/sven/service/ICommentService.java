@@ -3,6 +3,7 @@ package com.mrlu.sven.service;
 import com.mrlu.sven.SearchParams.CommentParams;
 import com.mrlu.sven.common.ResultPage;
 import com.mrlu.sven.common.SvenException;
+import com.mrlu.sven.domain.Account;
 import com.mrlu.sven.domain.Comment;
 
 /**
@@ -22,7 +23,7 @@ public interface ICommentService {
      * @param comment
      * @return
      */
-    void saveComment(Comment comment, Long accountId)throws SvenException;
+    void saveComment(Comment comment, Account account)throws SvenException;
 
     /**
      * 删除comment

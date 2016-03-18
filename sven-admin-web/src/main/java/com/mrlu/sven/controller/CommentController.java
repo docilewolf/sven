@@ -5,6 +5,8 @@ import com.mrlu.sven.SearchParams.CommentParams;
 import com.mrlu.sven.common.HandleModelResult;
 import com.mrlu.sven.common.ResultPage;
 import com.mrlu.sven.common.SvenException;
+import com.mrlu.sven.controller.util.ContextUtil;
+import com.mrlu.sven.domain.Account;
 import com.mrlu.sven.domain.Comment;
 import com.mrlu.sven.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -32,10 +35,10 @@ public class CommentController extends MultiActionController {
 
     @RequestMapping(value = "save",method= RequestMethod.POST)
     @ResponseBody
-    public void save(Comment comment, HttpSession session) throws SvenException {
+    public void save(Comment comment, HttpServletRequest request) throws SvenException {
         logger.info("[save comment] " + JSON.toJSONString(comment));
-        Long accountId = (Long) session.getAttribute("accountId");
-        commentService.saveComment(comment, accountId);
+        Account account = ContextUtil.validCookie(request);
+        commentService.saveComment(comment, account);
     }
 
     @RequestMapping(value = "deleteById",method= RequestMethod.POST)

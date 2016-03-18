@@ -37,6 +37,16 @@
       where id = #{id}
     </select>
 
+    <select id="selectByIds" resultMap="BaseResultMap" parameterType="java.util.List" >
+        select
+        id,user_name,email,mobile,type,status,create_at,update_at
+        from account
+        where
+        <foreach collection="array" open="id in (" close=")" separator="," item="model">
+            #{model}
+        </foreach>
+    </select>
+
     <delete id="deleteById" parameterType="java.lang.Long" >
       update account
       set status = 3

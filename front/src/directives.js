@@ -146,4 +146,43 @@ svenModule.directive('uploadFile', function ($upload, project) {
             }
         }
     }
-})
+});
+
+svenModule.directive('comment', function ($rootScope, commentService) {
+    return {
+        restrict: 'EA',
+        scope: false,
+        replace: false,
+        template: '<div class="comment-text">' +
+        '<textarea placeholder="I want to say..." ng-model="content"></textarea>' +
+        '<div class="comment-action">' +
+        '<button class="btn btn-primary btn-small" ng-click="confirm()">发表</button>' +
+        '</div></div>',
+        link: function(scope, element, attr){
+            scope.confirm = function () {
+                var data = {
+                    essayId: attr.essayId,
+                    pictureId: attr.pictureId,
+                    commentId: attr.commentId,
+                    content: scope.content,
+                    fromAccountId: $rootScope.account.id,
+                    fromMemberId: $rootScope.member.id,
+                    type: attr.type,
+                    toAccountId: attr.toAccountId,
+                    toMemberId: attr.toMemberId
+                };
+                commentService.save(data).then(function (res) {
+                    $('comment').css('display', 'none');
+                    var params = {
+                        essayId: attr.essayId
+                    };
+                    commentService.list(params).then(function (response) {
+                        //ng-reapeat会创建新的作用域，此处使用父作用域
+                        scope.entity.list = response.list;
+                        commentService.commentUserInfo(scope.entity.list);
+                    })
+                })
+            };
+        }
+    }
+});

@@ -12,4 +12,50 @@
     </div>
     <div class="show-content" ng-bind-html="entity.content | safe">
     </div>
+    <!--<div class="comment-container">
+        <textarea class="form-control" rows="7"></textarea>
+    </div>-->
+    <div id="comment">
+        <div class="comment-title clearfix">
+            <span>评论内容<i class="fa fa-comments"></i></span>
+            <div class="pull-right" ng-if="auth">
+                <span><a href="" ng-click="displayComment('')"><i class="fa fa-comment-o"></i>添加新评论</a></span>
+            </div>
+        </div>
+        <!--<div class="comment-header clearfix" ng-if="auth">
+            <div class="pull-right">
+                <span><a href="" ng-click="displayComment('')"><i class="fa fa-comment-o"></i>添加新评论</a></span>
+            </div>
+        </div>-->
+        <comment id="item" style="display:none" type="11" essay-id="{{entity.id}}" comment-id="0" to-account-id="{{account.id}}" to-member-id="{{member.id}}" ng-if="auth"></comment>
+        <ul class="comment-list">
+            <li class="clearfix" ng-repeat="item in entity.list">
+                <div class="comment-user clearfix">
+                    <span class="comment-user-icon"><i class="fa fa-user"></i></span>
+                    <!--<img src="http://upload.jianshu.io/users/upload_avatars/808875/82a9a5ebfdb5.jpeg?imageMogr/thumbnail/90x90/quality/100">-->
+                    <div class="comment-user-info">
+                        <p>
+                            <a href=""><span ng-bind="item.userName"></span></a>
+                        </p>
+                        <span ng-bind="item.createAt | date: 'yyyy-MM-dd HH:mm:ss'"></span>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    <p ng-bind-html="item.content | safe"></p>
+                </div>
+                <div class="comment-footer clearfix" ng-if="auth">
+                    <a href="" class="pull-left"><i class="fa fa-heart-o"></i>喜欢</a>
+                    <a href="" class="pull-right" ng-click="displayComment($index)">回复</a>
+                </div>
+                <comment id="item{{$index}}" style="display:none" type="30" essay-id="{{item.essayId}}" comment-id="{{item.commentId}}" to-account-id="{{item.fromAccountId}}" to-member-id="{{item.fromMemberId}}" ng-if="auth"></comment>
+            </li>
+        </ul>
+    </div>
 </div>
+
+<!--
+<script>
+    function displayComment(id){
+        $("#"+id).css("display", "block");
+    }
+</script>-->

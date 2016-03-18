@@ -64,6 +64,13 @@ public class AccountController extends MultiActionController {
         return accountService.getById(id);
     }
 
+    @RequestMapping(value = "getByIds",method= RequestMethod.GET)
+    @ResponseBody
+    public Object getByIds(String ids) throws SvenException{
+        logger.info("[get account by ids]" + ids);
+        return accountService.getByIds(ids);
+    }
+
     @RequestMapping(value = "deleteById",method= RequestMethod.POST)
     @ResponseBody
     public Object deleteById(Long id) throws SvenException {

@@ -32,6 +32,8 @@
     display: inline-block;
     height: 46px;
     width: 68%;
+    font-size: 14px;
+    line-height: 17px;
 }
 
 .form-horizontal{

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,5 +125,11 @@ public class AccountServiceImpl implements IAccountService {
             throw new SvenException(HttpStatus.BAD_REQUEST.value(), "账号或密码不正确");
         }
         return userAccount;
+    }
+
+    @Override
+    public List<Account> getByIds(String ids) {
+        if(StringUtils.isEmpty(ids)) return new ArrayList<>();
+        return accountDao.selectByIds(ids.split(","));
     }
 }

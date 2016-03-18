@@ -6,6 +6,7 @@ import com.mrlu.sven.common.ResultPage;
 import com.mrlu.sven.common.SvenException;
 import com.mrlu.sven.dao.ICommentDao;
 import com.mrlu.sven.dao.IMemberDao;
+import com.mrlu.sven.domain.Account;
 import com.mrlu.sven.domain.Comment;
 import com.mrlu.sven.domain.Member;
 import com.mrlu.sven.service.ICommentService;
@@ -43,9 +44,10 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public void saveComment(Comment comment, Long accountId)throws SvenException {
+    public void saveComment(Comment comment, Account account)throws SvenException {
+        if(null == account) throw new SvenException(HttpStatus.BAD_REQUEST.value(), "请先登陆再进行操作");
         checkParams(comment);
-        Member member = memberDao.selectByAccountId(accountId);
+        Member member = memberDao.selectByAccountId(account.getId());
         comment.setFromMemberId(member.getId());
         comment.setCreateAt(System.currentTimeMillis());
         commentDao.insert(comment);

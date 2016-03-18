@@ -57,10 +57,22 @@ svenModule.controller('categoryController', function ($rootScope, $scope, $state
 svenModule.controller('commentController', function ($scope, $state) {
 });
 
-svenModule.controller('essayController', function ($scope, $state, $stateParams, essayService, commonService) {
+svenModule.controller('essayController', function ($scope, $state, $stateParams, essayService, commentService) {
+  $scope.entity = {};
   essayService.getEassyById($stateParams.id).then(function (res) {
-    $scope.entity = res.entity;
-  })
+    $scope.entity = angular.extend($scope.entity, res.entity);
+  });
+  var params = {
+    essayId: $stateParams.id
+  };
+  commentService.list(params).then(function (response) {
+    $scope.entity.list = response.list;
+    commentService.commentUserInfo($scope.entity.list);
+  });
+  
+  $scope.displayComment = function (id) {
+    $("#item"+id).css("display", "block");
+  }
 });
 
 svenModule.controller('newEssayController', function ($rootScope, $scope, $state, $stateParams, $modal, essayService, profileService, ProfileType) {
@@ -204,11 +216,16 @@ svenModule.controller('newPictureController', function ($rootScope, $scope, $sta
   }
 });
 
-svenModule.controller('loginController', function ($rootScope, $scope, accountService, $state) {
+svenModule.controller('loginController', function ($rootScope, $scope, $state, accountService, $location) {
+  if($rootScope.auth){
+    $state.go('welcome');
+    return;
+  }
+  //记录 referrer
+  $rootScope.oldHref = location.href == $location.href?"": location.href;
   $('.header').css("display", "none");
   $scope.entity = {};
   $rootScope.isLogin = true;
-
   $scope.isSign = $rootScope.isSign;
   if($scope.isSign == undefined || $scope.isSign == null) $scope.isSign = true;
   $scope.confirm = function () {
