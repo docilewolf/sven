@@ -43,7 +43,7 @@
                 <div class="comment-content">
                     <p ng-bind-html="item.content | safe"></p>
                 </div>
-                <div class="comment-footer clearfix" ng-if="auth">
+                <div class="comment-footer clearfix" ng-if="auth && account.id!=item.fromAccountId">
                     <a href="" class="pull-left"><i class="fa fa-heart-o"></i>喜欢</a>
                     <a href="" class="pull-right" ng-click="displayComment($index)">回复</a>
                 </div>
