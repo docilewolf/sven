@@ -2,15 +2,7 @@
 
 ---
 
-### 技术： java + angularJS + tomcat + nginx
+### 技术： 
 
-
----
-
-TODO:
-
-- 权限
-- 评论
-- 编辑，删除
-
----
+- SpringMVC + Mybatis + angularJS + JQuery 
+- tomcat + nginx
