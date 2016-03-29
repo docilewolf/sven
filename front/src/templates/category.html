@@ -13,7 +13,7 @@
 <ul class="common-list category-content" ng-if="type == 1">
     <li ng-repeat="item in list">
         <a class="wrap-img" href="" ng-click="goNextSate(item)">
-            <img src="" ng-src="{{item.imgUrl}}" />
+            <img src="" ng-src="{{item.imgUrl?item.imgUrl:defaultProfileImage}}" />
         </a>
         <div>
             <p class="category-date">发表时间：{{item.createAt | date: 'yyyy-MM-dd HH:mm:ss'}}</p>

@@ -49,7 +49,6 @@ public class ProfileServiceImpl implements IProfileService {
     private void checkParam(Profile profile)throws SvenException {
         if(StringUtils.isEmpty(profile.getName()) ||
                 StringUtils.isEmpty(profile.getDescription()) ||
-                StringUtils.isEmpty(profile.getImgUrl()) ||
                 profile.getType() == null || (
                     profile.getEssayId() == null && profile.getPictureId() == null
                 )){

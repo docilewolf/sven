@@ -127,6 +127,7 @@ svenModule.config(function ($httpProvider) {
 //项目部署名称
 svenModule.constant('project', {name: 'svenbg', uri: '/svenbg'});
 svenModule.constant('ProfileType', {ESSAY:1, PICTURE:2});
+svenModule.constant('defaultProfileImage', 'http://7xpc60.com1.z0.glb.clouddn.com/sven-76424657-4059-4fff-a157-5ebb7430f257.png');
 
 //底部导航栏内容
 svenModule.run(function($rootScope, accountService, $state){
