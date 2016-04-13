@@ -54,6 +54,16 @@ svenModule.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "src/templates/newEssay.html",
       controller: 'newEssayController'
     })
+    .state('markdownEdit', {
+      url: '/markdownEdit/:id',
+      templateUrl: "src/templates/markdownEdit.html",
+      controller: 'markdownEditController'
+    })
+    .state('markdownView', {
+      url: '/markdownView/:id',
+      templateUrl: "src/templates/markdownView.html",
+      controller: 'markdownViewController'
+    })
     .state('member', {
       url: '/member',
       templateUrl: "modules/sven/templates/member.html",

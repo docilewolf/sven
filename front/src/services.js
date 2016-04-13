@@ -86,7 +86,6 @@ svenModule.factory('commentService', function($http, project, accountService) {
                     var index = accountIdList.indexOf(item.id);
                     if(index >= 0) accountList.splice(index, 0, item);
                 });
-                console.log(accountList)
                 list.forEach(function (item) {
                     var toIndex = accountIdList.indexOf(item.toAccountId);
                     if(toIndex >= 0 && item.type==30){
@@ -102,7 +101,7 @@ svenModule.factory('commentService', function($http, project, accountService) {
     }
 });
 
-svenModule.factory('essayService', function ($http, project) {
+svenModule.factory('essayService', function ($http, project, ProfileType, profileService) {
     return {
         getEassyById: function(id){
             return $http({
@@ -125,6 +124,26 @@ svenModule.factory('essayService', function ($http, project) {
                 url: project.uri + '/admin/essay/update',
                 data: data
             })
+        },
+        saveOperation: function (scope, otherConfig) {
+            if(!scope.data.name){
+                alert("请输入标题");
+                return;
+            }
+            if(otherConfig) {
+                otherConfig();
+            }
+
+            var saveFn = this.save;
+            var updateFn = this.update;
+
+            function confirm(profile){
+                scope.data.description = profile.description;
+                scope.data.categoryId = profile.categoryId;
+                return scope.isEdit?updateFn(scope.data):saveFn(scope.data);
+            }
+
+            profileService.newProfile(ProfileType.ESSAY, confirm, scope.isEdit, scope.data)
         }
     }
 });

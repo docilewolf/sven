@@ -61,6 +61,9 @@ svenModule.controller('essayController', function ($scope, $state, $stateParams,
   $scope.entity = {};
   essayService.getEassyById($stateParams.id).then(function (res) {
     $scope.entity = angular.extend($scope.entity, res.entity);
+    if($scope.entity.isMarkdown){
+      $state.go('markdownView', {id: $scope.entity.id});
+    }
   });
   var params = {
     essayId: $stateParams.id
@@ -142,18 +145,66 @@ svenModule.controller('newEssayController', function ($rootScope, $scope, $state
   });*/
 
   $scope.save = function () {
-    if(!$scope.data.name){
-      alert("请输入标题");
-      return;
-    }
-    profileService.newProfile(ProfileType.ESSAY, $scope.confirm, $scope.isEdit, $scope.data)
+    essayService.saveOperation($scope);
+  };
+});
+
+svenModule.controller('markdownEditController', function ($rootScope, $scope, $state, $stateParams, commonService, $timeout, profileService, ProfileType, essayService) {
+  if(!$rootScope.auth){
+    $state.go('profile',{type:1});
+    return;
+  }
+  //页面初始化
+  $('.header').css("display", "none");
+
+  $scope.data = {};
+  $scope.data.isMarkdown = 1;//需要新增加此字段
+  if($stateParams.id){
+    $scope.isEdit = true;
+    essayService.getEassyById($stateParams.id).then(function (res) {
+      $scope.data = res.entity;
+      initTextAreaHeight()
+    })
+  }else{
+    $scope.data.name=commonService.name;
+    $scope.data.content=commonService.content;
+    initTextAreaHeight()
+  }
+
+  function initTextAreaHeight() {
+    $timeout(function () {
+      flexContent();
+    });
+  }
+
+  $scope.preview = function () {
+    commonService.name = $scope.data.name;
+    commonService.content = $scope.data.content;
+    $state.go('markdownView');
   };
 
-  $scope.confirm = function (profile) {
-    $scope.data.description = profile.description;
-    $scope.data.categoryId = profile.categoryId;
-    return $scope.isEdit?essayService.update($scope.data):essayService.save($scope.data);
-  };
+  $scope.save = function () {
+    essayService.saveOperation($scope, function () {
+      commonService.name = null;
+      commonService.content = null;
+    })
+  }
+});
+
+svenModule.controller('markdownViewController', function ($scope, commonService, essayService, $stateParams, $timeout) {
+  $scope.entity = {};
+  if($stateParams.id){
+    essayService.getEassyById($stateParams.id).then(function (res) {
+      $scope.entity = res.entity;
+      $scope.entity.content = marked($scope.entity.content);
+    })
+  }else{
+    $scope.entity.name = commonService.name;
+    $scope.entity.content = marked(commonService.content);
+  }
+  /*$timeout(function () {
+    $('img').parents('p').css('text-align', 'center');
+  })*/
 });
 
 svenModule.controller('memberController', function ($scope, $state) {

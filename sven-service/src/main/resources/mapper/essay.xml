@@ -11,21 +11,21 @@
         <result column="create_at" property="createAt" />
         <result column="update_at" property="updateAt" />
         <result column="isdel" property="isdel" />
-        
+        <result column="is_markdown" property="isMarkdown"/>
     </resultMap>
 
     <sql id="Base_Column_List" >
-    id,name,description,content,category_id,create_at,update_at,isdel
+    id,name,description,content,category_id,create_at,update_at,isdel,is_markdown
     </sql>
     
     <insert id="insert" parameterType="com.mrlu.sven.domain.Essay" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO essay
         (
-          id,name,description,content,category_id,create_at,update_at
+          id,name,description,content,category_id,create_at,update_at,is_markdown
         )
         VALUES
         (
-          #{ id },#{ name },#{ description },#{ content },#{ categoryId },#{ createAt },#{ updateAt }
+          #{ id },#{ name },#{ description },#{ content },#{ categoryId },#{ createAt },#{ updateAt },#{isMarkdown}
         )
     </insert>
 

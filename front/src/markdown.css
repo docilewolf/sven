@@ -1,0 +1,69 @@
+.writing-markdown{
+    background-color: #e6e6e6;
+    padding: 10px;
+    padding-bottom: 130px;
+    width: 100%;
+    /*float: left;*/
+}
+
+.writing-markdown .main {
+    margin: 20px auto 0 auto;
+    width: 80%;
+    box-shadow: 0 0 7px rgba(0,0,0,0.25);
+    background-color: white;
+}
+
+.writing-markdown .rich-text {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 100;
+    line-height: 25px;
+}
+
+.rich-text .body{
+    position: relative;
+}
+
+.rich-text .body pre{
+    display: block;
+    visibility: hidden;
+    line-height: 1.7;
+    font-size: 100%;
+    /*padding: 10px;*/
+}
+
+.rich-text .body textarea{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 10px;
+    min-height: 50px;
+    overflow: hidden;
+    font-size: 100%;
+    line-height: 1.7;
+}
+
+.markdown-body{
+    width: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    padding:0;
+    padding-top: 35px;
+}
+
+.markdown-article{
+    width: 100%;
+    background-color: rgba(238, 238, 238, 0.2);
+    padding: 5%;
+}
+
+.markdown-article .title{
+    margin-bottom: 25px;
+    padding-top: 10px;
+    border-bottom: 1px dashed #DDD;
+}

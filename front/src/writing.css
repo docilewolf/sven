@@ -40,6 +40,7 @@
 .kalamu-box .kalamu-area{
     padding: 30px;
     bottom: 0;
+    min-height: 300px;
 }
 
 .kalamu-area a{

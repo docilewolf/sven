@@ -53,7 +53,8 @@ public class Essay implements Serializable{
     * 
     */
     private Integer isdel = 0;
-    
+
+    private Integer isMarkdown = 0;
     
     public Long getId(){
         return id;
@@ -118,5 +119,12 @@ public class Essay implements Serializable{
     public void setIsdel(Integer isdel){
         this.isdel = isdel;
     }
-    
+
+    public Integer getIsMarkdown() {
+        return isMarkdown;
+    }
+
+    public void setIsMarkdown(Integer isMarkdown) {
+        this.isMarkdown = isMarkdown;
+    }
 }

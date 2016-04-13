@@ -1,0 +1,29 @@
+<div class="writing-markdown">
+    <div class="main">
+        <form class="rich-text">
+            <input class="title" name="note_title" ng-model="data.name" />
+            <ul class="toolbar clearfix">
+                <li class="pull-right publish-button-item">
+                    <button data-action="publicize" id="publish-button" ng-click="preview()">
+                        <i class="fa fa-mail-forward"></i> 预览
+                    </button>
+                </li>
+                <li class="pull-right">
+                    <button data-action="trigger-save" data-toggle="tooltip" data-original-title="保存" ng-click="save()">
+                        <i class="fa fa-floppy-o"></i> 保存</button>
+                </li>
+            </ul>
+            <div class="body">
+                <!--<pre ng-bind-html="data.editHTML | safe"></pre>-->
+                <textarea id="content" ng-model="data.content"></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+<!--<div id="editHtml" class="markdown-body" ng-bind-html="data.editHTML | safe"></div>-->
+<script>
+    function flexContent(){
+        console.log("data end...");
+        $('#content').flexText();
+    }
+</script>

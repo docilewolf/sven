@@ -168,6 +168,27 @@ svenModule.run(function($rootScope, project, $http, $state, $window){
     });
 });
 
+//第三方配置信息
+svenModule.run(function () {
+    //语法高亮，highlight配置
+    hljs.configure({
+        tabReplace: '    ', // 4 spaces
+        classPrefix: 'hljs-' // hight生成的标签中每个class(css)的前缀
+        //languages:[{"js": javascript(hljs)},{'javascript': javascript(hljs)},{'java': java(hljs)}]                    // … other options aren't changed
+    });
+    hljs.registerLanguage("java", java);
+    hljs.registerLanguage("js", javascript);
+    hljs.registerLanguage("json", json);
+    hljs.registerLanguage("python", python);
+    hljs.initHighlighting();
+
+    //markdown配置使用highlight.js
+    marked.setOptions({
+        highlight: function (code) {
+            return hljs.highlightAuto(code).value;
+        }
+    });
+});
 //获取用户信息
 /*svenModule.run(function ($rootScope, $http, project) {
     $http({
@@ -185,6 +206,9 @@ svenModule.run(function($rootScope, project, $http, $state, $window){
 
 //页面跳转
 svenModule.run(function ($rootScope, $http, project) {
+    /*$rootScope.$on('$locationChangeSuccess', function () {
+    })*/
+
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         if($('.header').css('display') == 'none') $('.header').css('display', 'block');
         if(!$('.header-essay').hasClass('hide')) $('.header-essay').addClass('hide');

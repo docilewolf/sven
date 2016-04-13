@@ -53,6 +53,7 @@ create table  `essay`
        `create_at`       BIGINT(20),
        `update_at`       BIGINT(20),
        `isdel`           INT(4) DEFAULT 0,
+       `is_markdown`      INT(4) DEFAULT 0
        primary key(id)
 );
 
